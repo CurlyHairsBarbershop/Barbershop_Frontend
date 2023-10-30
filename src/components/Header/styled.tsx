@@ -8,6 +8,8 @@ export const HeaderWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  height: 70px;
+  padding-inline: 16px;
 
   background-color: ${MainColor};
 `;
@@ -19,14 +21,16 @@ export const SectionsWrapper = styled.div`
 `;
 
 export const Logo = styled(Image)`
+  width: 50px !important;
+  height: 50px !important;
+
   background-color: #fff;
-  width: 70px !important;
-  height: 70px !important;
+  border: 0.5px solid #fff;
+  border-radius: 50%;
 `;
 
 export const SectionList = styled.div`
   display: flex;
-  gap: 16px;
   margin: 0;
   padding: 0;
 
@@ -34,11 +38,15 @@ export const SectionList = styled.div`
 `;
 
 export const Section = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
-  padding: 0;
+  padding-inline: 8px;
   text-decoration: none;
+  height: 70px;
 
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #fff;
 `;

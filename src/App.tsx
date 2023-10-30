@@ -6,6 +6,7 @@ import {
 import './App.css';
 import { HomePage } from './pages/HomePage/HomePage';
 import { MainLayout } from './layouts/MainLayout/MainLayout';
+import { BarbersPage } from './pages/BarbersPage/BarbersPage';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,9 @@ const router = createBrowserRouter([
     children: [
       {
         index: true, element:<HomePage />
+      },
+      {
+        path: 'barbers', element: <BarbersPage />
       }
     ],
   },

@@ -12,7 +12,7 @@ export const Header = () => {
       <SectionsWrapper>
         <Logo src="src/public/images/Header/logo.svg" preview={false} />
         <SectionList>
-          <Section to="/home">Home</Section>
+          <Section to="/">Home</Section>
           <Section to="/barbers">Barbers</Section>
           <Section to="/services">Services</Section>
           <Section to="/contacts">Contacts</Section>
