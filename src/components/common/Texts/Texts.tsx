@@ -25,3 +25,8 @@ export const PageTitle = styled.p`
 
   margin-bottom: 20px;
 `;
+
+export const Subtitle = styled.p`
+  font-size: 32px;
+  font-weight: 700;
+`;

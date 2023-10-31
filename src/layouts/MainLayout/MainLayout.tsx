@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router';
 import { Header } from '../../components/Header/Header';
-import { Footer } from '../../components/common/Footer/Footer';
-
+import { Footer } from '../../components/Footer/Footer';
 
 export const MainLayout: React.FC = () => {
   return (

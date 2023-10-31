@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { DarkColor } from '../../../constants/colors';
+import { DarkColor } from '../../constants/colors';
 
 export const Wrapper = styled.footer`
   display: flex;

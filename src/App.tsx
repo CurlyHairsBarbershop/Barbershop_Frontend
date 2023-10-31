@@ -7,6 +7,7 @@ import './App.css';
 import { HomePage } from './pages/HomePage/HomePage';
 import { MainLayout } from './layouts/MainLayout/MainLayout';
 import { BarbersPage } from './pages/BarbersPage/BarbersPage';
+import { ServicePage } from './pages/ServicePage/ServicePage';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'barbers', element: <BarbersPage />
+      },
+      {
+        path: 'services', element: <ServicePage />
       }
     ],
   },

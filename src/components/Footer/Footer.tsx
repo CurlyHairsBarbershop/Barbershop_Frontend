@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Wrapper } from './styled';
-import { WhiteSecondaryText } from '../Texts/Texts';
+import { WhiteSecondaryText } from '../common/Texts/Texts';
 
 export const Footer: FC = () => {
   return (
