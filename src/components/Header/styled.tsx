@@ -3,7 +3,7 @@ import { MainColor } from '../../constants/colors';
 import { Image } from 'antd';
 import { NavLink } from 'react-router-dom';
 
-export const HeaderWrapper = styled.div`
+export const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;

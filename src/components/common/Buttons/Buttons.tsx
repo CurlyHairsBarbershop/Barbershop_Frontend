@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import styled from 'styled-components';
-import { SecondaryColor } from '../../../constants/colors';
+import { MainColor } from '../../../constants/colors';
 
 export const CloseButton = styled(Button)`
   display: flex;
@@ -15,5 +15,5 @@ export const CloseButton = styled(Button)`
   height: 60px;
 
   border: none;
-  background-color: ${SecondaryColor};
+  background-color: ${MainColor};
 `;
