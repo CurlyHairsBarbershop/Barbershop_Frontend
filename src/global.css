@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body,
+p,
+h1,
+h2,
+h3,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+.active {
+  background-color: #34527f !important;
+}
+
+.ant-modal-content {
+  border-radius: 16px !important;
+  border: 1px solid #405676 !important;
+}
+
+.ant-modal {
+  border: none !important;
+}
