@@ -33,5 +33,5 @@ class AxiosController {
 }
 
 export const apiClient = new AxiosController({
-  baseURL: 'http://localhost:5092/'
+  baseURL: 'http://194.1.220.48:5092/'
 });
