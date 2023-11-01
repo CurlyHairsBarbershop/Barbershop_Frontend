@@ -8,6 +8,7 @@ import { HomePage } from './pages/HomePage/HomePage';
 import { MainLayout } from './layouts/MainLayout/MainLayout';
 import { BarbersPage } from './pages/BarbersPage/BarbersPage';
 import { ServicePage } from './pages/ServicePage/ServicePage';
+import { LoginPage } from './pages/LoginPage/LoginPage';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     path: 'home',
     element: <Navigate to="/" replace />,
   },
+  {
+    path: 'login',
+    element: <LoginPage />
+  }
 ]);
 
 export const App: React.FC = () => {
