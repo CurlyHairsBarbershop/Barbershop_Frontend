@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 class AxiosController {
   token: string | null = null;
   instance: AxiosInstance;
-  withoutAuth: string[] = ['account/register', ];
+  withoutAuth: string[] = ['account/register', 'account/login'];
 
   constructor({ baseURL }: { baseURL: string }) {
     this.instance = axios.create({
@@ -33,5 +33,5 @@ class AxiosController {
 }
 
 export const apiClient = new AxiosController({
-  baseURL: 'http://194.1.220.48:5092/'
+  baseURL: 'http://localhost:5092/'
 });

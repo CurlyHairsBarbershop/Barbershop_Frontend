@@ -13,7 +13,7 @@ export const signUp = createAsyncThunk(
 );
 
 export const signIn = createAsyncThunk(
-  '',
+  'account/login',
   async (body, { rejectWithValue }) => {
     try {
       return await api.signIn(body);

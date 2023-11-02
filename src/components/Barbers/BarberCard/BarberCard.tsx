@@ -8,15 +8,12 @@ import {
   BarberNameText,
 } from './stlyled';
 import { Col, Image } from 'antd';
-import {
-  SecondaryText,
-  TitleText,
-} from '../../common/Texts/Texts';
+import { SecondaryText, TitleText } from '../../common/Texts/Texts';
 import { CloseButton } from '../../common/Buttons/Buttons';
 import { CloseOutlined } from '@ant-design/icons';
 
 type Props = {
-  barber?: Barber;
+  barber: Barber;
 };
 
 export const BarberCard: FC<Props> = ({ barber }) => {
@@ -33,8 +30,8 @@ export const BarberCard: FC<Props> = ({ barber }) => {
   return (
     <>
       <Col span={6}>
-        <BarberCardWrapper onClick={onOpen}>
-          <BarberNameText>Lorem, ipsum dolor.</BarberNameText>
+        <BarberCardWrapper backgroundImage={barber?.image} onClick={onOpen}>
+          <BarberNameText>{`${barber?.name} ${barber?.lastName}`}</BarberNameText>
         </BarberCardWrapper>
       </Col>
       <BarberWrapper
@@ -48,11 +45,13 @@ export const BarberCard: FC<Props> = ({ barber }) => {
         </CloseButton>
         <InfoWrapper>
           <Image
-            width={320}
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            style={{ width: '100%', maxWidth: '320px', display: 'block' }}
+            src={barber?.image}
           />
           <BarberData>
             <TitleText>{barber?.name}</TitleText>
+            <SecondaryText>{barber?.email}</SecondaryText>
+            <SecondaryText>{barber?.phoneNumber}</SecondaryText>
             <SecondaryText>{barber?.description}</SecondaryText>
           </BarberData>
         </InfoWrapper>

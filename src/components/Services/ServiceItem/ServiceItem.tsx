@@ -2,12 +2,19 @@ import { FC } from 'react';
 import { Wrapper } from './styled';
 import { Subtitle } from '../../common/Texts/Texts';
 
-export const ServiceItem: FC = () => {
+type Props = {
+  service: {
+    name: string,
+    price: string,
+  }
+}
+
+export const ServiceItem: FC<Props> = ({service}) => {
   return (
     <Wrapper>
-      <Subtitle>123</Subtitle>
+      <Subtitle>{service.name}</Subtitle>
 
-      <Subtitle>123</Subtitle>
+      <Subtitle>{service.price}</Subtitle>
     </Wrapper>
   );
 };

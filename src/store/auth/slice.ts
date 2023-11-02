@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { signIn, signUp } from './asyncThunks';
 import { setCookie } from '../../helpers/common';
-import { apiClient } from '../../lib/axios';
+// import { apiClient } from '../../lib/axios';
 
 const slice = createSlice({
   name: 'auth',
@@ -23,30 +23,25 @@ const slice = createSlice({
       .addCase(signUp.fulfilled, (state, action) => {
         state.errorMessage = '';
         state.isAuth = true;
-        const tokens = action.payload?.tokens;
+        const token = action.payload?.data.token;
 
-        if (tokens) {
-          setCookie('tokens', JSON.stringify(tokens));
-          apiClient.setToken(tokens?.access.token);
+        if (token) {
+          setCookie('token', JSON.stringify(token));
+          // apiClient.setToken(tokens?.access.token);
         }
       })
-      // .addCase(signUp.rejected, (state, action) => {
-      //   // state.errorMessage = action?.payload?.response?.data?.message;
-      // })
       .addCase(signIn.fulfilled, (state, action) => {
         state.user = action.payload.data.user;
         state.isAuth = true;
-        const tokens = action.payload.data?.tokens;
+        const token = action.payload.data?.token;
+        console.log(token);
+        
 
-        if (tokens) {
-          setCookie('tokens', JSON.stringify(tokens));
-          apiClient.setToken(tokens?.access.token);
+        if (token) {
+          setCookie('token', JSON.stringify(token));
+          // apiClient.setToken(token?.access.token);
         }
       });
-    // .addCase(signIn.rejected, (state, action) => {
-    //   // state.errorMessage =
-    //     // action?.payload?.response?.data?.message || 'unexpectedError';
-    // });
   },
 });
 

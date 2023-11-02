@@ -10,5 +10,5 @@ export const api = {
   },
   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  signIn: (body: any) => apiInstance.post('/auth/login', body),
+  signIn: (body: any) => apiInstance.post('/account/login', body),
 };

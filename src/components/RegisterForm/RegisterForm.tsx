@@ -2,29 +2,35 @@ import { FC, useState } from 'react';
 import { Button, Input, notification } from 'antd';
 import type { NotificationPlacement } from 'antd/es/notification/interface';
 import { useAppDispatch } from '../../store/hooks/hooks';
-import { signIn } from '../../store/auth/asyncThunks';
-import { LoginFormWrapper, Wrapper } from './styled';
+import { signUp } from '../../store/auth/asyncThunks';
+import { RegisterFormWrapper, Wrapper } from './styled';
 import { PageTitle } from '../common/Texts/Texts';
 import { useNavigate } from 'react-router-dom';
 
-interface LoginModel {
+interface RegisterModel {
   email: string;
+  name: string;
+  lastName: string;
   password: string;
+  confirmPassword: string;
 }
 
-export const LoginForm: FC = () => {
+export const RegisterForm: FC = () => {
   const dispatch = useAppDispatch();
   const [api, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
 
-  const [newUser, setNewUser] = useState<LoginModel>({
+  const [newUser, setNewUser] = useState<RegisterModel>({
     email: '',
+    name: '',
+    lastName: '',
     password: '',
+    confirmPassword: '',
   });
 
   const openNotification = (placement: NotificationPlacement) => {
     api.info({
-      message: 'You have been logged in succesfully',
+      message: 'You have been singed up succesfully',
       description:
         'Congratulations! Now you can enroll for a haircut of your dream!',
       placement,
@@ -45,7 +51,7 @@ export const LoginForm: FC = () => {
   };
 
   const onSubmit = async () => {
-    await dispatch(signIn(newUser));
+    await dispatch(signUp(newUser));
     await openNotification('bottomRight');
 
     setTimeout(() => {
@@ -57,20 +63,35 @@ export const LoginForm: FC = () => {
     <>
       {contextHolder}
       <Wrapper>
-        <PageTitle>Log in</PageTitle>
-        <LoginFormWrapper>
+        <PageTitle>Sign Up</PageTitle>
+        <RegisterFormWrapper>
           <Input
             placeholder="Email"
             value={newUser.email}
             onChange={(event) => handleFieldChange('email', event)}
           />
           <Input
+            placeholder="Name"
+            value={newUser.name}
+            onChange={(event) => handleFieldChange('name', event)}
+          />
+          <Input
+            placeholder="Last name"
+            value={newUser.lastName}
+            onChange={(event) => handleFieldChange('lastName', event)}
+          />
+          <Input
             placeholder="Password"
             value={newUser.password}
             onChange={(event) => handleFieldChange('password', event)}
           />
-          <Button onClick={onSubmit}>Log in</Button>
-        </LoginFormWrapper>
+          <Input
+            placeholder="Confirm password"
+            value={newUser.confirmPassword}
+            onChange={(event) => handleFieldChange('confirmPassword', event)}
+          />
+          <Button onClick={onSubmit}>Sign Up</Button>
+        </RegisterFormWrapper>
       </Wrapper>
     </>
   );
