@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { DarkColor } from '../../constants/colors';
 
 export const Wrapper = styled.footer`
   display: flex;
@@ -9,5 +8,6 @@ export const Wrapper = styled.footer`
   width: 100%;
   height: 100px;
 
-  background-color: ${DarkColor};
+  background-color: #031d33;
+  border-top: 1px solid #222;
 `;

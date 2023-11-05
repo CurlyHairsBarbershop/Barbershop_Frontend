@@ -19,6 +19,7 @@ export const Header = () => {
           <Section to="/about-us">About Us</Section>
         </SectionList>
       </SectionsWrapper>
+      <Section to="/login">Login</Section>
     </HeaderWrapper>
   );
 };

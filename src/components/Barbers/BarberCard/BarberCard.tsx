@@ -30,7 +30,7 @@ export const BarberCard: FC<Props> = ({ barber }) => {
   return (
     <>
       <Col span={6}>
-        <BarberCardWrapper backgroundImage={barber?.image} onClick={onOpen}>
+        <BarberCardWrapper bgimage={'https://gentlemensclub.com.ua/storage/barbers/October2023/N5PTEfNBm9Erz49spyzB.jpg'} onClick={onOpen}>
           <BarberNameText>{`${barber?.name} ${barber?.lastName}`}</BarberNameText>
         </BarberCardWrapper>
       </Col>

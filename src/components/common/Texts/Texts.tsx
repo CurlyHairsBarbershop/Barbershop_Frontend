@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import { WhiteColor } from '../../../constants/colors';
 
+export const WhiteMainText = styled.p`
+  font-size: 68px;
+  font-weight: 500;
+  color: ${WhiteColor};
+`;
+
 export const TitleText = styled.p`
   font-size: 36px;
   font-weight: 700;

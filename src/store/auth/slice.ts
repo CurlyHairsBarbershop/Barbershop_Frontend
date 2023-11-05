@@ -23,23 +23,22 @@ const slice = createSlice({
       .addCase(signUp.fulfilled, (state, action) => {
         state.errorMessage = '';
         state.isAuth = true;
-        const token = action.payload?.data.token;
+
+        const token = action.payload?.token;
+        console.log(action);
 
         if (token) {
           setCookie('token', JSON.stringify(token));
-          // apiClient.setToken(tokens?.access.token);
         }
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.user = action.payload.data.user;
         state.isAuth = true;
         const token = action.payload.data?.token;
-        console.log(token);
-        
+        console.log(action);
 
         if (token) {
           setCookie('token', JSON.stringify(token));
-          // apiClient.setToken(token?.access.token);
         }
       });
   },

@@ -11,4 +11,6 @@ export const api = {
   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   signIn: (body: any) => apiInstance.post('/account/login', body),
+
+  getBarbers: async () => apiInstance.get('/barbers'),
 };

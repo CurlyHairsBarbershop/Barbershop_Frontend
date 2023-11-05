@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 class AxiosController {
   token: string | null = null;
   instance: AxiosInstance;
-  withoutAuth: string[] = ['account/register', 'account/login'];
+  withoutAuth: string[] = ['/account/register', '/account/login'];
 
   constructor({ baseURL }: { baseURL: string }) {
     this.instance = axios.create({
@@ -22,7 +22,6 @@ class AxiosController {
         if (this.withoutAuth.includes(config.url as string) || !this.token) {
           return config;
         }
-
         config.headers['Authorization'] = `Bearer ${this.token}`;
 
         return config;
@@ -33,5 +32,5 @@ class AxiosController {
 }
 
 export const apiClient = new AxiosController({
-  baseURL: 'http://localhost:5092/'
+  baseURL: 'http://localhost:5092'
 });

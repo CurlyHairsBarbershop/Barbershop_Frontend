@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { MainColor } from '../../constants/colors';
 import { Image } from 'antd';
 import { NavLink } from 'react-router-dom';
 
@@ -7,11 +6,17 @@ export const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
   height: 70px;
   padding-inline: 16px;
 
-  background-color: ${MainColor};
+  background-color: rgba(0, 0, 0, 0.65);
+  border-radius: 12px;
+  z-index: 10;
+
+  position: fixed;
+  top: 10px;
+  right: 16px;
+  left: 16px;
 `;
 
 export const SectionsWrapper = styled.div`
@@ -42,11 +47,12 @@ export const Section = styled(NavLink)`
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding-inline: 8px;
+  padding-inline: 12px;
   text-decoration: none;
-  height: 70px;
+  height: 50px;
 
   font-size: 20px;
   font-weight: 700;
   color: #fff;
+  border-radius: 12px
 `;

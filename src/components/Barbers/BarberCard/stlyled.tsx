@@ -4,7 +4,7 @@ import { MainColor, WhiteColor } from '../../../constants/colors';
 import { Card } from 'antd';
 
 interface BarberCardWrapperProps {
-  backgroundImage: string;
+  bgimage: string;
 }
 
 export const BarberCardWrapper = styled(Card)<BarberCardWrapperProps>`
@@ -14,7 +14,7 @@ export const BarberCardWrapper = styled(Card)<BarberCardWrapperProps>`
   height: 300px;
   background-size: cover;
   transition: transform 500ms;
-  background-image: ${(props) => `url(${props.backgroundImage})`};
+  background-image: ${(props) => `url(${props.bgimage})`};
   background-position: center;
 
   &:hover {
