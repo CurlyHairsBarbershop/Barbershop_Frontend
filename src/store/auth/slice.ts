@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signIn, signUp } from './asyncThunks';
+import { getAccount, signIn, signUp } from './asyncThunks';
 import { setCookie } from '../../helpers/common';
-// import { apiClient } from '../../lib/axios';
 
 const slice = createSlice({
   name: 'auth',
@@ -40,6 +39,9 @@ const slice = createSlice({
         if (token) {
           setCookie('token', JSON.stringify(token));
         }
+      })
+      .addCase(getAccount.fulfilled, (state, action) => {
+        state.user = action.payload;
       });
   },
 });

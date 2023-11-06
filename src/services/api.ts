@@ -8,9 +8,18 @@ export const api = {
     const { data } = await apiInstance.post('/account/register', body);
     return data;
   },
-  
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   signIn: (body: any) => apiInstance.post('/account/login', body),
 
-  getBarbers: async () => apiInstance.get('/barbers'),
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getAccount: async (token: string) => {
+    const { data } = await apiInstance.get('/account', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    return data;
+  },
+
+  getBarbers: async () => apiInstance.get('/barbers')
 };

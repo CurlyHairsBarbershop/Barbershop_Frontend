@@ -22,3 +22,7 @@ export const signIn = createAsyncThunk(
     }
   }
 );
+
+export const getAccount = createAsyncThunk('/account', async (token: string) => {
+  return await api.getAccount(token);
+});

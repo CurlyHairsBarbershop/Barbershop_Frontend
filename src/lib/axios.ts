@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 class AxiosController {
   token: string | null = null;
   instance: AxiosInstance;
-  withoutAuth: string[] = ['/account/register', '/account/login'];
+  withoutAuth: string[] = ['/account/register', '/account/loginz'];
 
   constructor({ baseURL }: { baseURL: string }) {
     this.instance = axios.create({

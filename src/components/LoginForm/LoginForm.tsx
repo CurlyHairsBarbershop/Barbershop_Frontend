@@ -6,6 +6,7 @@ import { signIn } from '../../store/auth/asyncThunks';
 import { LoginFormWrapper, Wrapper } from './styled';
 import { PageTitle } from '../common/Texts/Texts';
 import { useNavigate } from 'react-router-dom';
+import { actions } from '../../store/auth/slice';
 
 interface LoginModel {
   email: string;
@@ -46,6 +47,7 @@ export const LoginForm: FC = () => {
 
   const onSubmit = async () => {
     await dispatch(signIn(newUser));
+    await dispatch(actions.setAuth(true));
     await openNotification('bottomRight');
 
     setTimeout(() => {

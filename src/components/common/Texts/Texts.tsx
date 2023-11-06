@@ -22,10 +22,11 @@ export const SecondaryText = styled.p`
 `;
 
 export const WhiteSecondaryText = styled.p`
-  color: ${WhiteColor}
+  color: ${WhiteColor};
 `;
 
 export const PageTitle = styled.p`
+  color: ${WhiteColor};
   font-size: 40px;
   font-weight: 700;
 
