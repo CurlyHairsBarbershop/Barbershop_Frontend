@@ -1,28 +1,39 @@
-import { FC, useState } from 'react';
-import { Button, Input, notification } from 'antd';
+import { FC } from 'react';
+import { Input, notification } from 'antd';
 import type { NotificationPlacement } from 'antd/es/notification/interface';
-import { useAppDispatch } from '../../store/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import { signIn } from '../../store/auth/asyncThunks';
 import { LoginFormWrapper, Wrapper } from './styled';
-import { PageTitle } from '../common/Texts/Texts';
+import { PageTitle, WhiteSecondaryText } from '../common/Texts/Texts';
 import { useNavigate } from 'react-router-dom';
-import { actions } from '../../store/auth/slice';
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface LoginModel {
   email: string;
   password: string;
 }
 
+const schema = yup
+  .object({
+    email: yup.string().email().required('Please enter email!'),
+    password: yup
+      .string()
+      .min(6, 'Password min length is 5 symbols.')
+      .required('Please enter the password'),
+  })
+  .required();
+
 export const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
-  const [api, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
-
-  const [newUser, setNewUser] = useState<LoginModel>({
-    email: '',
-    password: '',
+  const { handleSubmit, control } = useForm<LoginModel>({
+    resolver: yupResolver(schema),
   });
-
+  const error = useAppSelector(state => state.auth.errorMessage);
+  
+  const [api, contextHolder] = notification.useNotification();
   const openNotification = (placement: NotificationPlacement) => {
     api.info({
       message: 'You have been logged in succesfully',
@@ -32,27 +43,16 @@ export const LoginForm: FC = () => {
     });
   };
 
-  const handleFieldChange = (
-    fieldName: string,
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    console.log(newUser);
-    setNewUser((prevUser) => {
-      return {
-        ...prevUser,
-        [fieldName]: event.target.value,
-      };
-    });
-  };
-
-  const onSubmit = async () => {
-    await dispatch(signIn(newUser));
-    await dispatch(actions.setAuth(true));
+  const onSubmit: SubmitHandler<LoginModel> = async (data) => {
+    const response = await dispatch(signIn(data));
+    
     await openNotification('bottomRight');
-
-    setTimeout(() => {
-      navigate('/home');
-    }, 2500);
+    
+    if (!response?.error) {
+      setTimeout(() => {
+        navigate('/home');
+      }, 2500);
+    }
   };
 
   return (
@@ -60,19 +60,29 @@ export const LoginForm: FC = () => {
       {contextHolder}
       <Wrapper>
         <PageTitle>Log in</PageTitle>
-        <LoginFormWrapper>
-          <Input
-            placeholder="Email"
-            value={newUser.email}
-            onChange={(event) => handleFieldChange('email', event)}
-          />
-          <Input
-            placeholder="Password"
-            value={newUser.password}
-            onChange={(event) => handleFieldChange('password', event)}
-          />
-          <Button onClick={onSubmit}>Log in</Button>
-        </LoginFormWrapper>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <LoginFormWrapper>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <>
+                  {error && <p>{error?.message}</p>}
+                  <Input placeholder="Email" {...field} />
+                </>
+              )}
+            />
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <Input.Password placeholder="Password" {...field} />
+              )}
+            />
+            <button type="submit">Log in</button>
+          </LoginFormWrapper>
+        </form>
+        <WhiteSecondaryText>{error}</WhiteSecondaryText>
       </Wrapper>
     </>
   );

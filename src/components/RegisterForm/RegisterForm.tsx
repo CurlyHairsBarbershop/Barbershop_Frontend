@@ -1,11 +1,14 @@
-import { FC, useState } from 'react';
-import { Button, Input, notification } from 'antd';
+import { FC } from 'react';
+import { Input, notification } from 'antd';
 import type { NotificationPlacement } from 'antd/es/notification/interface';
 import { useAppDispatch } from '../../store/hooks/hooks';
 import { signUp } from '../../store/auth/asyncThunks';
 import { RegisterFormWrapper, Wrapper } from './styled';
 import { PageTitle } from '../common/Texts/Texts';
 import { useNavigate } from 'react-router-dom';
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 interface RegisterModel {
   email: string;
@@ -15,17 +18,28 @@ interface RegisterModel {
   confirmPassword: string;
 }
 
+const schema = yup
+  .object({
+    email: yup.string().email().required('Please enter email!'),
+    name: yup.string().required(),
+    lastName: yup.string().required(),
+    password: yup
+      .string()
+      .min(6, 'Password min length is 5 symbols.')
+      .required('Please enter the password'),
+    confirmPassword: yup
+      .string()
+      .min(6, 'Password min length is 5 symbols.')
+      .required('Please enter the password'),
+  })
+  .required();
+
 export const RegisterForm: FC = () => {
   const dispatch = useAppDispatch();
   const [api, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
-
-  const [newUser, setNewUser] = useState<RegisterModel>({
-    email: '',
-    name: '',
-    lastName: '',
-    password: '',
-    confirmPassword: '',
+  const { handleSubmit, control } = useForm<RegisterModel>({
+    resolver: yupResolver(schema),
   });
 
   const openNotification = (placement: NotificationPlacement) => {
@@ -37,26 +51,15 @@ export const RegisterForm: FC = () => {
     });
   };
 
-  const handleFieldChange = (
-    fieldName: string,
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    console.log(newUser);
-    setNewUser((prevUser) => {
-      return {
-        ...prevUser,
-        [fieldName]: event.target.value,
-      };
-    });
-  };
-
-  const onSubmit = async () => {
-    await dispatch(signUp(newUser));
+  const onSubmit: SubmitHandler<RegisterModel> = async (data) => {
+    const response = await dispatch(signUp(data));
     await openNotification('bottomRight');
 
-    setTimeout(() => {
-      navigate('/home');
-    }, 2500);
+    if (!response?.payload?.response?.data) {
+      setTimeout(() => {
+        navigate('/home');
+      }, 2500);
+    }
   };
 
   return (
@@ -64,34 +67,47 @@ export const RegisterForm: FC = () => {
       {contextHolder}
       <Wrapper>
         <PageTitle>Sign Up</PageTitle>
-        <RegisterFormWrapper>
-          <Input
-            placeholder="Email"
-            value={newUser.email}
-            onChange={(event) => handleFieldChange('email', event)}
-          />
-          <Input
-            placeholder="Name"
-            value={newUser.name}
-            onChange={(event) => handleFieldChange('name', event)}
-          />
-          <Input
-            placeholder="Last name"
-            value={newUser.lastName}
-            onChange={(event) => handleFieldChange('lastName', event)}
-          />
-          <Input
-            placeholder="Password"
-            value={newUser.password}
-            onChange={(event) => handleFieldChange('password', event)}
-          />
-          <Input
-            placeholder="Confirm password"
-            value={newUser.confirmPassword}
-            onChange={(event) => handleFieldChange('confirmPassword', event)}
-          />
-          <Button onClick={onSubmit}>Sign Up</Button>
-        </RegisterFormWrapper>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <RegisterFormWrapper>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => <Input placeholder="Email" {...field} />}
+            />
+
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => <Input placeholder="Name" {...field} />}
+            />
+
+            <Controller
+              name="lastName"
+              control={control}
+              render={({ field }) => (
+                <Input placeholder="Last Name" {...field} />
+              )}
+            />
+
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <Input placeholder="Password" {...field} />
+              )}
+            />
+
+            <Controller
+              name="confirmPassword"
+              control={control}
+              render={({ field }) => (
+                <Input placeholder="Confirm password" {...field} />
+              )}
+            />
+
+            <button type="submit">Sign Up</button>
+          </RegisterFormWrapper>
+        </form>
       </Wrapper>
     </>
   );

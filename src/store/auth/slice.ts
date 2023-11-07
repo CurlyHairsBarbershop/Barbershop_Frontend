@@ -24,21 +24,31 @@ const slice = createSlice({
         state.isAuth = true;
 
         const token = action.payload?.token;
-        console.log(action);
 
         if (token) {
           setCookie('token', JSON.stringify(token));
         }
       })
+      .addCase(signUp.rejected, (state, action) => {
+        // eslint-disable-next-line indent, @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        state.errorMessage = action?.payload?.response.data;
+      })
       .addCase(signIn.fulfilled, (state, action) => {
+        state.errorMessage = '';
         state.user = action.payload.data.user;
         state.isAuth = true;
+
         const token = action.payload.data?.token;
-        console.log(action);
 
         if (token) {
           setCookie('token', JSON.stringify(token));
         }
+      })
+      .addCase(signIn.rejected, (state, action) => {
+        // eslint-disable-next-line indent, @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        state.errorMessage = action?.payload?.response?.data;
       })
       .addCase(getAccount.fulfilled, (state, action) => {
         state.user = action.payload;
