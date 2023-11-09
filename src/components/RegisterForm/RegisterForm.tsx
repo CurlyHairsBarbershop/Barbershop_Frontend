@@ -21,7 +21,7 @@ interface RegisterModel {
 const schema = yup
   .object({
     email: yup.string().email().required('Please enter email!'),
-    name: yup.string().required(),
+    name: yup.string().required('Please enter your name!'),
     lastName: yup.string().required(),
     password: yup
       .string()
