@@ -22,7 +22,7 @@ const schema = yup
   .object({
     email: yup.string().email().required('Please enter email!'),
     name: yup.string().required('Please enter your name!'),
-    lastName: yup.string().required('Please enter your last name!'),
+    lastName: yup.string().required('Please enter your last name.'),
     password: yup
       .string()
       .min(6, 'Password min length is 6 symbols.')
