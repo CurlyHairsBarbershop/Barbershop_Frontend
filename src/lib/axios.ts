@@ -1,4 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 class AxiosController {
   token: string | null = null;
@@ -32,5 +34,5 @@ class AxiosController {
 }
 
 export const apiClient = new AxiosController({
-  baseURL: 'http://localhost:5092'
+  baseURL: process.env.API_URL as string,
 });
