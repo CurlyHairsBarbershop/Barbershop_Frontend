@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import { WhiteColor } from '../../../constants/colors';
 
+export const WhiteMainText = styled.p`
+  font-size: 68px;
+  font-weight: 500;
+  color: ${WhiteColor};
+`;
+
 export const TitleText = styled.p`
   font-size: 36px;
   font-weight: 700;
@@ -16,12 +22,18 @@ export const SecondaryText = styled.p`
 `;
 
 export const WhiteSecondaryText = styled.p`
-  color: ${WhiteColor}
+  color: ${WhiteColor};
 `;
 
 export const PageTitle = styled.p`
+  color: ${WhiteColor};
   font-size: 40px;
   font-weight: 700;
 
   margin-bottom: 20px;
+`;
+
+export const Subtitle = styled.p`
+  font-size: 32px;
+  font-weight: 700;
 `;

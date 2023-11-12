@@ -5,6 +5,10 @@
   font-family: 'Inter', sans-serif;
 }
 
+html {
+  background-color: #010f1b;
+}
+
 body,
 p,
 h1,
@@ -17,7 +21,7 @@ li {
 }
 
 .active {
-  background-color: #34527f !important;
+  background-color: rgba(54, 68, 88, 0.7) !important;
 }
 
 .ant-modal-content {

@@ -6,4 +6,5 @@ export const Wrapper = styled.div`
   max-width: 1280px;
   width: 100%;
   margin: 20px auto 20px;
+  /* min-height: 100vh; */
 `;

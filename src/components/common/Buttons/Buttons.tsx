@@ -17,3 +17,23 @@ export const CloseButton = styled(Button)`
   border: none;
   background-color: ${MainColor};
 `;
+
+export const EnrollButton = styled(Button)`
+  width: 180px;
+  height: 60px;
+  padding: 12px 16px;
+
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
+  border-color: transparent;
+
+  transition: border-color 1s,  background-color 0.5s;
+  
+  &:hover {
+    border: 1px solid transparent !important;
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+`;

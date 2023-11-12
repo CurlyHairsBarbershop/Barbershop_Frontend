@@ -3,16 +3,19 @@ import styled from 'styled-components';
 import { MainColor, WhiteColor } from '../../../constants/colors';
 import { Card } from 'antd';
 
-export const BarberCardWrapper = styled(Card)`
-  position: relative;
+interface BarberCardWrapperProps {
+  bgimage: string;
+}
 
-  max-width: 300px;
+export const BarberCardWrapper = styled(Card)<BarberCardWrapperProps>`
+  position: relative;
+  max-width: 280px;
   width: 100%;
   height: 300px;
-
-  background-image: url('https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png');
   background-size: cover;
   transition: transform 500ms;
+  background-image: ${(props) => `url(${props.bgimage})`};
+  background-position: center;
 
   &:hover {
     transform: scale(1.05);
