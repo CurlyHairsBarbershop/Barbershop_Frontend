@@ -1,8 +1,9 @@
 export interface Barber {
+  id: number,
   name: string,
   lastName: string,
   email: string,
   phoneNumber: string,
-  image: string,
+  imageUrl: string,
   description: string,
 }
