@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import auth from './auth/slice';
-import barber from './barber/slice';
+import commercial from './commercial/slice';
 
 export const store = configureStore({
   reducer: {
     auth,
-    barber,
+    commercial,
   },
 });
 

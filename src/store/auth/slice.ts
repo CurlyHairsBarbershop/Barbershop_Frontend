@@ -52,6 +52,7 @@ const slice = createSlice({
       })
       .addCase(getAccount.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.isAuth = true;
       });
   },
 });

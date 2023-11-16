@@ -1,4 +1,5 @@
 import { apiClient } from '../lib/axios';
+import { Appointment } from '../types/Appointment/Appointment';
 
 const apiInstance = apiClient.instance;
 
@@ -21,5 +22,15 @@ export const api = {
     return data;
   },
 
-  getBarbers: async () => apiInstance.get('/barbers')
+  getBarbers: async () => apiInstance.get('/barbers'),
+
+  getServices: async () => apiInstance.get('/favors'),
+
+  makeAppointment: async (appointment: Appointment, token: string) => {
+    const { data } = await apiInstance.post('/appointments', appointment, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    return data;
+  },
 };

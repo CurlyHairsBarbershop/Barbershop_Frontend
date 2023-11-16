@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { FrontText, VideoContainer, Wrapper } from './styled';
 import { EnrollButton } from '../common/Buttons/Buttons';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   bgVideo: string;
@@ -8,6 +9,7 @@ type Props = {
 };
 
 export const VideoBackground: FC<Props> = ({ bgVideo }) => {
+  const navigate = useNavigate();
   return (
     <VideoContainer>
       <video
@@ -22,7 +24,7 @@ export const VideoBackground: FC<Props> = ({ bgVideo }) => {
           Elevated barbering and stlying for all human kind.
         </FrontText>
 
-        <EnrollButton>enroll now</EnrollButton>
+        <EnrollButton onClick={() => navigate('/enroll')}>enroll now</EnrollButton>
       </Wrapper>
     </VideoContainer>
   );
