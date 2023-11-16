@@ -33,4 +33,10 @@ export const api = {
 
     return data;
   },
+
+  getSchedulePerBarber: async (id: number, daysAhead: number) => {
+    const { data } = await apiInstance.get(`/barbers/${id}/schedule?daysAhead=${daysAhead}`);
+    
+    return data;
+  }
 };

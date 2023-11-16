@@ -21,3 +21,7 @@ export const getServices = createAsyncThunk('/favors', async (_, { rejectWithVal
 export const makeAppointment = createAsyncThunk('/appointments', async ({ appointment, token }: { appointment: Omit<Appointment, 'id'>, token: string }) => {
   return await api.makeAppointment(appointment, token);
 });
+
+export const getSchedulePerBarber = createAsyncThunk('/getBarbersSchedule', async ({ id, daysAhead }: { id: number, daysAhead: number }) => {
+  return await api.getSchedulePerBarber(id, daysAhead);
+});

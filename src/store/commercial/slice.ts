@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getBarbers, getServices, makeAppointment } from './asyncThunks';
+import { getBarbers, getSchedulePerBarber, getServices, makeAppointment } from './asyncThunks';
 
 const slice = createSlice({
   name: 'commercial',
@@ -8,6 +8,7 @@ const slice = createSlice({
     barbers: [],
     services: [],
     appointments: [],
+    schedulePerBarber: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -27,6 +28,10 @@ const slice = createSlice({
         console.log(action);
         
         state.appointments = action.payload.data;
+      })
+      .addCase(getSchedulePerBarber.fulfilled, (state, action) => {
+        state.errorMessage = '',
+        state.schedulePerBarber = action.payload;
       });
   },
 });
