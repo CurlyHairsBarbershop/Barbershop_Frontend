@@ -46,7 +46,7 @@ export const BarberCard: FC<Props> = ({ barber }) => {
         <InfoWrapper>
           <Image
             style={{ width: '100%', maxWidth: '320px', display: 'block' }}
-            src={barber?.image}
+            src={barber.imageUrl}
           />
           <BarberData>
             <TitleText>{barber?.name}</TitleText>

@@ -8,7 +8,7 @@ export const WhiteMainText = styled.p`
 `;
 
 export const TitleText = styled.p`
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
 `;
 

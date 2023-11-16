@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
+import { API_URL } from '../../env.ts';
 
 class AxiosController {
   token: string | null = null;
@@ -34,5 +33,5 @@ class AxiosController {
 }
 
 export const apiClient = new AxiosController({
-  baseURL: process.env.API_URL as string,
+  baseURL: API_URL,
 });

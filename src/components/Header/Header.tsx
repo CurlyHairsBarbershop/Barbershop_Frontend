@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import {
   HeaderWrapper,
   Logo,
@@ -5,8 +7,19 @@ import {
   Section,
   SectionsWrapper,
 } from './styled';
+import { getAccount } from '../../store/auth/asyncThunks';
+import { getCookie } from '../../helpers/common';
 
 export const Header = () => {
+  const token = getCookie('token');
+  const dispatch = useAppDispatch();
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  
+
+  useEffect(() => {
+    dispatch(getAccount(token as string));
+  }, [dispatch]);
+
   return (
     <HeaderWrapper>
       <SectionsWrapper>
@@ -15,8 +28,7 @@ export const Header = () => {
           <Section to="/">Home</Section>
           <Section to="/barbers">Barbers</Section>
           <Section to="/services">Services</Section>
-          <Section to="/contacts">Contacts</Section>
-          <Section to="/profile">Profile</Section>
+          {isAuth && <Section to="/profile">Profile</Section>}
         </SectionList>
       </SectionsWrapper>
       <Section to="/login">Login</Section>

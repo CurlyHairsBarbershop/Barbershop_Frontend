@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Row } from 'antd';
 import { BarberCard } from '../BarberCard/BarberCard';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
-import { getBarbers } from '../../../store/barber/asyncThunks';
+import { getBarbers } from '../../../store/commercial/asyncThunks';
 import { Barber } from '../../../types/Barber/Barber';
 
 // const barber = {
@@ -18,7 +18,7 @@ import { Barber } from '../../../types/Barber/Barber';
 
 export const BarberList = () => {
   const dispatch = useAppDispatch();
-  const barbers: Barber[] = useAppSelector((state) => state.barber.barbers);
+  const barbers: Barber[] = useAppSelector((state) => state.commercial.barbers);
 
   useEffect(() => {
     dispatch(getBarbers());
