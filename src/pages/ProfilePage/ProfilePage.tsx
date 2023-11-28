@@ -1,17 +1,12 @@
-import { FC, useEffect } from 'react';
-import { getCookie } from '../../helpers/common';
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { getAccount } from '../../store/auth/asyncThunks';
+import React, { FC } from 'react';
+import { Container } from '../../components/common/Container/Container';
+import { Profile } from '../../components/Profile/Profile';
 
 export const ProfilePage: FC = () => {
-  const token = getCookie('token');
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.auth.user);
 
-  useEffect(() => {
-    dispatch(getAccount(token as string));
-    console.log(user);
-  }, [dispatch]);
-
-  return <h1></h1>;
+  return (
+    <Container>
+      <Profile />
+    </Container>
+  );
 };

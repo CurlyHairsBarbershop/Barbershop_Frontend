@@ -2,13 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getAccount, signIn, signUp } from './asyncThunks';
 import { setCookie } from '../../helpers/common';
 
+// interface AuthSlice {
+//   user: 
+// }
+
+const initialState = {
+  user: null,
+  isAuth: false,
+  errorMessage: '',
+};
+
 const slice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-    isAuth: false,
-    errorMessage: '',
-  },
+  initialState,
   reducers: {
     setAuth(state, action) {
       state.isAuth = action.payload;

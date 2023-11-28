@@ -77,7 +77,7 @@ export const EnrollForm = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getSchedulePerBarber({ id: appointment.barberId, daysAhead: 1 }));
+    dispatch(getSchedulePerBarber({ id: appointment.barberId, daysAhead: 2  }));
     setHoursToDisable(disabledHoursByDay(day, barberSchedule));
     console.log('schedule:', barberSchedule);
   }, [day, appointment.barberId, time]);
@@ -90,7 +90,7 @@ export const EnrollForm = () => {
 
   const onSelectTime = (time: Dayjs) => {
     setTime(time.hour());
-
+    
     setAppointment((appointment) => {
       return {
         ...appointment,
