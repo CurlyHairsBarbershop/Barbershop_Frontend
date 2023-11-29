@@ -6,6 +6,8 @@ import {
   InfoWrapper,
   BarberCardWrapper,
   BarberNameText,
+  BarberInfo,
+  CommentWrapper,
 } from './stlyled';
 import { Col, Image } from 'antd';
 import { SecondaryText, TitleText } from '../../common/Texts/Texts';
@@ -30,7 +32,12 @@ export const BarberCard: FC<Props> = ({ barber }) => {
   return (
     <>
       <Col span={6}>
-        <BarberCardWrapper bgimage={'https://gentlemensclub.com.ua/storage/barbers/October2023/N5PTEfNBm9Erz49spyzB.jpg'} onClick={onOpen}>
+        <BarberCardWrapper
+          bgimage={
+            'https://gentlemensclub.com.ua/storage/barbers/October2023/N5PTEfNBm9Erz49spyzB.jpg'
+          }
+          onClick={onOpen}
+        >
           <BarberNameText>{`${barber?.name} ${barber?.lastName}`}</BarberNameText>
         </BarberCardWrapper>
       </Col>
@@ -44,16 +51,21 @@ export const BarberCard: FC<Props> = ({ barber }) => {
           <CloseOutlined style={{ color: '#fff', fontSize: '24px' }} />
         </CloseButton>
         <InfoWrapper>
-          <Image
-            style={{ width: '100%', maxWidth: '320px', display: 'block' }}
-            src={barber.imageUrl}
-          />
-          <BarberData>
-            <TitleText>{barber?.name}</TitleText>
-            <SecondaryText>{barber?.email}</SecondaryText>
-            <SecondaryText>{barber?.phoneNumber}</SecondaryText>
-            <SecondaryText>{barber?.description}</SecondaryText>
-          </BarberData>
+          <BarberInfo>
+            <Image
+              style={{ width: '100%', maxWidth: '320px', display: 'block' }}
+              src={barber.imageUrl}
+            />
+            <BarberData>
+              <TitleText>{barber?.name}</TitleText>
+              <SecondaryText>{barber?.email}</SecondaryText>
+              <SecondaryText>{barber?.phoneNumber}</SecondaryText>
+              <SecondaryText>{barber?.description}</SecondaryText>
+            </BarberData>
+          </BarberInfo>
+          <CommentWrapper title="Barber comments">
+            
+          </CommentWrapper>
         </InfoWrapper>
       </BarberWrapper>
     </>

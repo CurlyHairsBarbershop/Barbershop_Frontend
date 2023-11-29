@@ -49,6 +49,12 @@ export const BarberWrapper = styled(Modal)`
 
 export const InfoWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 36px;
+`;
+
+export const BarberInfo = styled.div`
+  display: flex;
   gap: 36px;
 `;
 
@@ -56,4 +62,11 @@ export const BarberData = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+`;
+
+export const CommentWrapper = styled(Card)`
+  width: 100%;
+  max-height: 400px;
+  overflow-y: scroll;
+  background-color: ${WhiteColor};
 `;

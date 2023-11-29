@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../services/api';
 import { Appointment } from '../../types/Appointment/Appointment';
+import { BarberComment } from '../../types/Barber/BarberComment';
 
 export const getBarbers = createAsyncThunk('/barbers', async (_, { rejectWithValue }) => {
   try {
@@ -24,4 +25,9 @@ export const makeAppointment = createAsyncThunk('/appointments', async ({ appoin
 
 export const getSchedulePerBarber = createAsyncThunk('/getBarbersSchedule', async ({ id, daysAhead }: { id: number, daysAhead: number }) => {
   return await api.getSchedulePerBarber(id, daysAhead);
+});
+
+
+export const leaveCommentBarber = createAsyncThunk('leaveCommentBarber', async({commentBody, token}: {commentBody: BarberComment, token: string}) => {
+  return await api.leaveCommentBarber(commentBody, token);
 });
