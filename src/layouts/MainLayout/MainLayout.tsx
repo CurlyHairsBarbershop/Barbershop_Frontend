@@ -10,12 +10,14 @@ export const MainLayout: React.FC = () => {
 
   useEffect(() => {
     dispatch(getBarbers());
-  }, [dispatch]);
+  }, []);
   return (
-    <section>
-      <Header />
-      <Outlet />
+    <>
+      <section>
+        <Header />
+        <Outlet />
+      </section>
       <Footer />
-    </section>
+    </>
   );
 };

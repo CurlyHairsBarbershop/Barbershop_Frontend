@@ -1,20 +1,18 @@
 import { FC } from 'react';
 import { Wrapper } from './styled';
 import { Subtitle } from '../../common/Texts/Texts';
+import { Service } from '../../../types/Service/Service';
 
 type Props = {
-  service: {
-    name: string,
-    price: string,
-  }
-}
+  service: Service;
+};
 
-export const ServiceItem: FC<Props> = ({service}) => {
+export const ServiceItem: FC<Props> = ({ service }) => {
   return (
     <Wrapper>
       <Subtitle>{service.name}</Subtitle>
 
-      <Subtitle>{service.price}</Subtitle>
+      <Subtitle>{service.cost}</Subtitle>
     </Wrapper>
   );
 };

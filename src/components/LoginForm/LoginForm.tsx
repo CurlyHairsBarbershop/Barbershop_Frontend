@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Input, notification } from 'antd';
 import type { NotificationPlacement } from 'antd/es/notification/interface';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { signIn } from '../../store/auth/asyncThunks';
+import { signIn, signInAdminAccount } from '../../store/auth/asyncThunks';
 import { LoginFormWrapper, Wrapper } from './styled';
 import { PageTitle, WhiteSecondaryText } from '../common/Texts/Texts';
 import { useNavigate } from 'react-router-dom';
@@ -31,8 +31,8 @@ export const LoginForm: FC = () => {
   const { handleSubmit, control } = useForm<LoginModel>({
     resolver: yupResolver(schema),
   });
-  const error = useAppSelector(state => state.auth.errorMessage);
-  
+  const error = useAppSelector((state) => state.auth.errorMessage);
+
   const [api, contextHolder] = notification.useNotification();
   const openNotification = (placement: NotificationPlacement) => {
     api.info({
@@ -45,10 +45,10 @@ export const LoginForm: FC = () => {
 
   const onSubmit: SubmitHandler<LoginModel> = async (data) => {
     const response = await dispatch(signIn(data));
-    
-    await openNotification('bottomRight');
-    
-    if (!response?.error) {
+    const adminResponse = await dispatch(signInAdminAccount(data));
+
+    if (!response?.error || !adminResponse.error) {
+      await openNotification('bottomRight');
       setTimeout(() => {
         navigate('/home');
       }, 2500);

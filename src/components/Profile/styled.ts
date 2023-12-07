@@ -46,6 +46,11 @@ max-width: 800px;
 width: 100%;
 display: grid;
 grid-template-columns: 1fr 1fr 1fr 1fr;
-background-color: #fff;
 justify-items: center;
+gap: 20px;
+padding: 20px;
+margin-bottom: 40px;
+
+background-color: #fff;
+border-radius: 24px
 `;

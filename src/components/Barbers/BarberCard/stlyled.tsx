@@ -2,6 +2,7 @@ import { Modal } from 'antd';
 import styled from 'styled-components';
 import { MainColor, WhiteColor } from '../../../constants/colors';
 import { Card } from 'antd';
+import { HeartFilled } from '@ant-design/icons';
 
 interface BarberCardWrapperProps {
   bgimage: string;
@@ -27,7 +28,7 @@ export const BarberNameText = styled.p`
   right: 8px;
   bottom: 8px;
 
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: ${WhiteColor};
 `;
@@ -64,9 +65,45 @@ export const BarberData = styled.div`
   gap: 8px;
 `;
 
-export const CommentWrapper = styled(Card)`
+export const ReviewWrapper = styled(Card)`
   width: 100%;
   max-height: 400px;
   overflow-y: scroll;
   background-color: ${WhiteColor};
+`;
+
+export const ReviewCard = styled.div`
+  width: 100%;
+`;
+
+export const ReviewFormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const LikeWrapper = styled.div`
+  position: absolute;
+  width: 24px;
+  height: 24px;
+`;
+
+interface ILikeIcon {
+  isFilled: string;
+}
+
+export const LikeIcon = styled(HeartFilled)<ILikeIcon>`
+  font-size: 24px;
+  color: ${(props) => props.isFilled ? '#f842b2e2' : '#000'};
+  transition: color 0.3s;
+
+  &:hover {
+    color: #f842b2e2;
+  }
+  
+`;
+
+export const EditBarberWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

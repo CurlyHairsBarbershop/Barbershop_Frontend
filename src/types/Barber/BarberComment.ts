@@ -1,6 +1,6 @@
 export interface BarberComment {
-  baeberEmail: string,
+  barberEmail: string,
   content: string,
-  rating: string,
+  rating: number,
   title: string,
 }

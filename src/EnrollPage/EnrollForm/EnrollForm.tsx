@@ -24,10 +24,12 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
 
 const disabledHoursByDay = (dayToDisable: number, datesToDisable: Date[]) => {
   if (!dayToDisable) {
-    return [];
+    return;
   }
-  console.log(dayToDisable);
-  console.log('dates', datesToDisable);
+
+  if (!datesToDisable) {
+    return;
+  }
 
   const currentDayToDisable = datesToDisable.filter(
     (d) => dayjs(d).date() === dayToDisable,
@@ -77,9 +79,12 @@ export const EnrollForm = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getSchedulePerBarber({ id: appointment.barberId, daysAhead: 2  }));
-    setHoursToDisable(disabledHoursByDay(day, barberSchedule));
-    console.log('schedule:', barberSchedule);
+    if (appointment.barberId) {
+      dispatch(
+        getSchedulePerBarber({ id: appointment.barberId, daysAhead: 2 }),
+      );
+      setHoursToDisable(disabledHoursByDay(day, barberSchedule));
+    }
   }, [day, appointment.barberId, time]);
 
   const onSelectDate: DatePickerProps['onChange'] = (date) => {
@@ -90,7 +95,7 @@ export const EnrollForm = () => {
 
   const onSelectTime = (time: Dayjs) => {
     setTime(time.hour());
-    
+
     setAppointment((appointment) => {
       return {
         ...appointment,
