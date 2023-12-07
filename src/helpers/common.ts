@@ -1,4 +1,4 @@
-export function getCookie(key: string | null = null): Record<string, string> | string | null {
+export function getCookie(key: string | null = null): string | null {
   if (typeof document === 'undefined') {
     return null;
   }

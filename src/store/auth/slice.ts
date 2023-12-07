@@ -1,14 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAccount, signIn, signUp } from './asyncThunks';
+import { changePassword, getAccount, signIn, signInAdminAccount, signUp } from './asyncThunks';
 import { setCookie } from '../../helpers/common';
+
+// interface AuthSlice {
+//   user: 
+// }
+
+const initialState = {
+  user: null,
+  isAuth: false,
+  errorMessage: '',
+};
 
 const slice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-    isAuth: false,
-    errorMessage: '',
-  },
+  initialState,
   reducers: {
     setAuth(state, action) {
       state.isAuth = action.payload;
@@ -45,6 +51,21 @@ const slice = createSlice({
           setCookie('token', JSON.stringify(token));
         }
       })
+      .addCase(signInAdminAccount.fulfilled, (state, action) => {
+        state.errorMessage = '';
+        state.user = action.payload.data.user;
+        state.isAuth = true;
+
+        const token = action.payload.data?.token;
+
+        if (token) {
+          setCookie('token', JSON.stringify(token));
+        }
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.errorMessage = '';
+        console.log(action);
+      }) 
       .addCase(signIn.rejected, (state, action) => {
         // eslint-disable-next-line indent, @typescript-eslint/ban-ts-comment
         // @ts-ignore
