@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { editBarber, getAppointmentsPerUser, getBarbers, getFavouriteBarbers, getSchedulePerBarber, getServices, leaveCommentBarber, likeBarber, makeAppointment } from './asyncThunks';
-import { Barber } from '../../types/Barber/Barber';
+import { addService, deleteBarber, deleteService, editBarber, editService, getAppointmentsPerUser, getBarbers, getFavouriteBarbers, getSchedulePerBarber, getServices, leaveCommentBarber, likeBarber, makeAppointment } from './asyncThunks';
+import { Barber, UpperBarber } from '../../types/Barber/Barber';
 import { Appointment, FullAppointment } from '../../types/Appointment/Appointment';
 import { Service } from '../../types/Service/Service';
 import { Review } from '../../types/Review/Review';
@@ -13,9 +13,13 @@ interface InitState {
   schedulePerBarber: Date[];
   lastReview: Review | null;
   lastAppointment: Appointment | null;
-  favouriteBarbers: Barber[],
+  favouriteBarbers: UpperBarber[],
   isFavouriteBarberMessage: string,
   editedBarber: Barber | null,
+  deletedBarber: Barber | null,
+  newService: Service | null,
+  editedService: Omit<Service, 'id'> | null,
+  deletedService: Omit<Service, 'id'> | null,
 }
 
 const initialState: InitState = {
@@ -29,6 +33,10 @@ const initialState: InitState = {
   favouriteBarbers: [],
   isFavouriteBarberMessage: '',
   editedBarber: null,
+  deletedBarber: null,
+  newService: null,
+  editedService: null,
+  deletedService: null,
 };
 
 const slice = createSlice({
@@ -39,7 +47,7 @@ const slice = createSlice({
     builder
       .addCase(getBarbers.fulfilled, (state, action) => {
         state.errorMessage = '';
-
+        console.log(action);
         state.barbers = action.payload?.data;
       })
       .addCase(getServices.fulfilled, (state, action) => {
@@ -78,6 +86,22 @@ const slice = createSlice({
       .addCase(editBarber.fulfilled, (state, action) => {
         state.errorMessage = '';
         state.editedBarber = action.payload;
+      })
+      .addCase(deleteBarber.fulfilled, (state, action) => {
+        state.errorMessage = '';
+        state.deletedBarber = action.payload;
+      })
+      .addCase(addService.fulfilled, (state, action) => {
+        state.errorMessage = '';
+        state.newService = action.payload;
+      })
+      .addCase(editService.fulfilled, (state, action) => {
+        state.errorMessage = '';
+        state.editedService = action.payload;
+      })
+      .addCase(deleteService.fulfilled, (state, action) => {
+        state.errorMessage = '';
+        state.deletedService = action.payload;
       });
   },
 });

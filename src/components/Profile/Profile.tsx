@@ -28,7 +28,7 @@ export const Profile: FC = () => {
   const favouriteBarbers = useAppSelector(
     (state) => state.commercial.favouriteBarbers,
   );
-  const token = getCookie('token');
+  const token = getCookie('token') as string;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export const Profile: FC = () => {
   return (
     <Wrapper>
       <AccountWrapper>
-        <TitleText>Your Profile</TitleText>
+        <TitleText style={{marginBottom: '40px'}}>Your Profile</TitleText>
         <AccountSettings>
           <AccountSetting>
             <AccountField>Name</AccountField>

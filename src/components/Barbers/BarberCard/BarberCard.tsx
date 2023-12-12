@@ -21,6 +21,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 import {
+  deleteBarber,
   dislikeBarber,
   editBarber,
   leaveCommentBarber,
@@ -87,6 +88,13 @@ export const BarberCard: FC<Props> = ({ barber }) => {
     }
   };
 
+  const onDeleteBarber = () => {
+    if (token) {
+      dispatch(deleteBarber({ token, id: barber.id }));
+      onClose();
+    }
+  };
+
   const onSubmit = () => {
     if (token) {
       dispatch(
@@ -122,14 +130,10 @@ export const BarberCard: FC<Props> = ({ barber }) => {
             {favouriteBarbers.find(
               (favouriteBarber) => favouriteBarber.Id === barber.id,
             ) ? (
-              // eslint-disable-next-line indent
-              <LikeIcon onClick={onDislikeBarber} isFilled={true} />
+                <LikeIcon onClick={onDislikeBarber} isFilled={true} />
               ) : (
-              // eslint-disable-next-line indent
-              // eslint-disable-next-line indent
-              <LikeIcon onClick={onLikeBarber} />
-              // eslint-disable-next-line indent
-            )}
+                <LikeIcon onClick={onLikeBarber} />
+              )}
           </LikeWrapper>
           <BarberNameText>{`${barber?.name} ${barber?.lastName}`}</BarberNameText>
         </BarberCardWrapper>
@@ -180,9 +184,7 @@ export const BarberCard: FC<Props> = ({ barber }) => {
               <Controller
                 name="name"
                 control={control}
-                render={({ field }) => (
-                  <Input placeholder="Name" {...field} />
-                )}
+                render={({ field }) => <Input placeholder="Name" {...field} />}
               />
               <Controller
                 name="lastName"
@@ -194,19 +196,18 @@ export const BarberCard: FC<Props> = ({ barber }) => {
               <Controller
                 name="email"
                 control={control}
-                render={({ field }) => (
-                  <Input placeholder="Email" {...field} />
-                )}
+                render={({ field }) => <Input placeholder="Email" {...field} />}
               />
               <Controller
                 name="image"
                 control={control}
-                render={({ field }) => (
-                  <Input placeholder="Image" {...field} />
-                )}
+                render={({ field }) => <Input placeholder="Image" {...field} />}
               />
             </EditBarberWrapper>
             <button>Change a barber</button>
+            <button type="button" onClick={onDeleteBarber}>
+              Delete a barber
+            </button>
           </form>
         </animated.div>
       </BarberWrapper>

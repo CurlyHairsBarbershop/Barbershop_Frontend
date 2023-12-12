@@ -49,8 +49,9 @@ const disabledHoursByDay = (dayToDisable: number, datesToDisable: Date[]) => {
 };
 
 export const EnrollForm = () => {
-  const [appointment, setAppointment] = useState<Omit<Appointment, 'id'>>({
-    at: new Date(),
+  const [appointment, setAppointment] = useState<Appointment>({
+    // at: new Date(),
+    at: '',
     barberId: 0,
     serviceIds: [],
   });
@@ -83,7 +84,11 @@ export const EnrollForm = () => {
       dispatch(
         getSchedulePerBarber({ id: appointment.barberId, daysAhead: 2 }),
       );
-      setHoursToDisable(disabledHoursByDay(day, barberSchedule));
+      const hours = disabledHoursByDay(day, barberSchedule);
+
+      if (hours) {
+        setHoursToDisable(hours);
+      }
     }
   }, [day, appointment.barberId, time]);
 
@@ -117,7 +122,7 @@ export const EnrollForm = () => {
   };
 
   const onSelectServices = (values: number[]) => {
-    setAppointment((appointment) => {
+    setAppointment((appointment: Appointment) => {
       return { ...appointment, serviceIds: [...values] };
     });
   };
@@ -148,6 +153,8 @@ export const EnrollForm = () => {
           />
           <TimePicker
             style={{ width: '300px' }}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
             onChange={onSelectTime}
             disabledHours={() => hoursToDisable}
             format="HH"

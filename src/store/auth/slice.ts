@@ -2,9 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { changePassword, getAccount, signIn, signInAdminAccount, signUp } from './asyncThunks';
 import { setCookie } from '../../helpers/common';
 
-// interface AuthSlice {
-//   user: 
-// }
 
 const initialState = {
   user: null,

@@ -12,3 +12,16 @@ export interface Barber {
   earnings: number,
   rating: 0,
 }
+
+export interface UpperBarber {
+  Id: number,
+  Name: string,
+  LastName: string,
+  Email: string,
+  PhoneNumber: string,
+  ImageUrl: string,
+  Description: string,
+  Reviews: BarberComment[],
+  Earnings: number,
+  Rating: 0,
+}

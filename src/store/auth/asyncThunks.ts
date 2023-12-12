@@ -3,7 +3,7 @@ import { api } from '../../services/api';
 
 export const signUp = createAsyncThunk(
   '/account/register',
-  async (body, { rejectWithValue }) => {
+  async (body: { email: string; name: string; lastName: string; password: string; confirmPassword: string; }, { rejectWithValue }) => {
     try {
       return await api.signUp(body);
     } catch (e) {
@@ -14,7 +14,7 @@ export const signUp = createAsyncThunk(
 
 export const signIn = createAsyncThunk(
   '/account/login',
-  async (body, { rejectWithValue }) => {
+  async (body: { email: string; password: string; }, { rejectWithValue }) => {
     try {
       return await api.signIn(body);
     } catch (e) {
@@ -25,7 +25,7 @@ export const signIn = createAsyncThunk(
 
 export const signInAdminAccount = createAsyncThunk(
   '/admin/login',
-  async (body, { rejectWithValue }) => {
+  async (body: { email: string; password: string; }, { rejectWithValue }) => {
     try {
       return await api.signInAdminAccoint(body);
     } catch (e) {

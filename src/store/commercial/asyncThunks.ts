@@ -3,6 +3,7 @@ import { api } from '../../services/api';
 import { Appointment, FullAppointment } from '../../types/Appointment/Appointment';
 import { BarberComment } from '../../types/Barber/BarberComment';
 import { EditBarber } from '../../types/Barber/EditBarber';
+import { Service } from '../../types/Service/Service';
 
 export const getBarbers = createAsyncThunk('/barbers', async (_, { rejectWithValue }) => {
   try {
@@ -51,4 +52,20 @@ export const dislikeBarber = createAsyncThunk('likeBarber', async ({ token, id }
 
 export const editBarber = createAsyncThunk('editBarber', async ({ token, id, body }: { token: string, id: number, body: EditBarber }) => {
   return await api.editBarber(token, id, body);
+});
+
+export const deleteBarber = createAsyncThunk('deleteBarber', async ({ token, id }: { token: string, id: number }) => {
+  return await api.deleteBarber(token, id);
+});
+
+export const addService = createAsyncThunk('addService', async ({ token, body }: { token: string, body: Omit<Service, 'id'> }) => {
+  return await api.addService(token, body);
+});
+
+export const editService = createAsyncThunk('editService', async ({ token, id, body }: { token: string, id: number, body: Omit<Service, 'id'> }) => {
+  return await api.editService(token, id, body);
+});
+
+export const deleteService = createAsyncThunk('deleteService', async ({ token, id }: { token: string, id: number }) => {
+  return await api.deleteService(token, id);
 });

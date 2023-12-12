@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import auth from './auth/slice';
 import commercial from './commercial/slice';
 
@@ -7,6 +7,9 @@ export const store = configureStore({
     auth,
     commercial,
   },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 
 

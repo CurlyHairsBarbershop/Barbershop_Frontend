@@ -1,37 +1,20 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 import { API_URL } from '../../env.ts';
 
-class AxiosController {
-  token: string | null = null;
-  instance: AxiosInstance;
-  withoutAuth: string[] = ['/account/register', '/account/loginz'];
+// class AxiosController {
+//   instance: AxiosInstance;
 
-  constructor({ baseURL }: { baseURL: string }) {
-    this.instance = axios.create({
-      baseURL,
-    });
-    // this.init();
-  }
+//   constructor({ baseURL }: { baseURL: string }) {
+//     this.instance = axios.create({
+//       baseURL,
+//     });
+//   }
+// }
 
-  setToken(token: string | null) {
-    this.token = token;
-  }
+// export const apiClient = new AxiosController({
+//   baseURL: API_URL,
+// });
 
-  // init() {
-  //   this.instance.interceptors.request.use(
-  //     (config) => {
-  //       if (this.withoutAuth.includes(config.url as string) || !this.token) {
-  //         return config;
-  //       }
-  //       config.headers['Authorization'] = `Bearer ${this.token}`;
-
-  //       return config;
-  //     },
-  //     (error) => error
-  //   );
-  // }
-}
-
-export const apiClient = new AxiosController({
+export const apiClient = axios.create({
   baseURL: API_URL,
 });

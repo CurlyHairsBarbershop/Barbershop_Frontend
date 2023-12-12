@@ -46,7 +46,9 @@ export const LoginForm: FC = () => {
   const onSubmit: SubmitHandler<LoginModel> = async (data) => {
     const response = await dispatch(signIn(data));
     const adminResponse = await dispatch(signInAdminAccount(data));
-
+    
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     if (!response?.error || !adminResponse.error) {
       await openNotification('bottomRight');
       setTimeout(() => {

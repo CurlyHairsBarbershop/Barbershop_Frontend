@@ -89,7 +89,7 @@ export const LikeWrapper = styled.div`
 `;
 
 interface ILikeIcon {
-  isFilled: string;
+  isFilled: boolean;
 }
 
 export const LikeIcon = styled(HeartFilled)<ILikeIcon>`

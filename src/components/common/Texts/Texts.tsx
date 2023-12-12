@@ -36,4 +36,5 @@ export const PageTitle = styled.p`
 export const Subtitle = styled.p`
   font-size: 32px;
   font-weight: 700;
+  color: ${WhiteColor};
 `;
