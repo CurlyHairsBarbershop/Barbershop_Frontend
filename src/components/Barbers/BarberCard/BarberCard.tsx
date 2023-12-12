@@ -119,13 +119,19 @@ export const BarberCard: FC<Props> = ({ barber }) => {
 
   return (
     <>
-      <Col span={6}>
-        <BarberCardWrapper
-          bgimage={
-            'https://gentlemensclub.com.ua/storage/barbers/October2023/N5PTEfNBm9Erz49spyzB.jpg'
-          }
-          onClick={onOpen}
-        >
+      <Col
+        xl={{ span: 6 }}
+        lg={{ span: 8 }}
+        md={{ span: 12 }}
+        sm={{ span: 24 }}
+        xs={{ span: 24 }}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          position: 'relative',
+        }}
+      >
+        <div style={{ width: '100%', position: 'relative', maxWidth: '280px' }}>
           <LikeWrapper>
             {favouriteBarbers.find(
               (favouriteBarber) => favouriteBarber.Id === barber.id,
@@ -135,8 +141,16 @@ export const BarberCard: FC<Props> = ({ barber }) => {
                 <LikeIcon onClick={onLikeBarber} />
               )}
           </LikeWrapper>
-          <BarberNameText>{`${barber?.name} ${barber?.lastName}`}</BarberNameText>
-        </BarberCardWrapper>
+
+          <BarberCardWrapper
+            bgimage={
+              'https://gentlemensclub.com.ua/storage/barbers/October2023/N5PTEfNBm9Erz49spyzB.jpg'
+            }
+            onClick={onOpen}
+          >
+            <BarberNameText>{`${barber?.name} ${barber?.lastName}`}</BarberNameText>
+          </BarberCardWrapper>
+        </div>
       </Col>
       <BarberWrapper
         open={isBarberShown}

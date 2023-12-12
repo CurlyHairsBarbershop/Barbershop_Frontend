@@ -84,8 +84,11 @@ export const ReviewFormWrapper = styled.div`
 
 export const LikeWrapper = styled.div`
   position: absolute;
+  right: 10%;
+  top: 5%;
   width: 24px;
   height: 24px;
+  z-index: 10;
 `;
 
 interface ILikeIcon {

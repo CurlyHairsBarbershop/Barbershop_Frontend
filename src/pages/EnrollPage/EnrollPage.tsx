@@ -1,4 +1,4 @@
-import { EnrollForm } from '../../EnrollPage/EnrollForm/EnrollForm';
+import { EnrollForm } from '../../components/EnrollForm/EnrollForm';
 import { Container } from '../../components/common/Container/Container';
 import { PageTitle } from '../../components/common/Texts/Texts';
 import { Wrapper } from './styled';

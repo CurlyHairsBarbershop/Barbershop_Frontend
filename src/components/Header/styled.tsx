@@ -54,5 +54,35 @@ export const Section = styled(NavLink)`
   font-size: 20px;
   font-weight: 700;
   color: #fff;
-  border-radius: 12px
+  border-radius: 12px;
+`;
+
+export const SectionLogout = styled(Section)`
+  border-radius: 16px !important;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(54, 68, 88, 0.7) !important;
+  }
+`;
+
+export const SectionText = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding-inline: 12px;
+  text-decoration: none;
+  height: 50px;
+
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 16px !important;
+
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(54, 68, 88, 0.7) !important;
+  }
 `;

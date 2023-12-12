@@ -19,5 +19,17 @@ export const RegisterFormWrapper = styled.div`
   padding: 40px;
 
   border-radius: 24px;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: 20px 24px;
+
+  border-radius: 24px;
+  background-color: #fff;
   border: 1px solid ${DarkColor};
 `;
+

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { changePassword, getAccount, signIn, signInAdminAccount, signUp } from './asyncThunks';
-import { setCookie } from '../../helpers/common';
+import { deleteCookie, setCookie } from '../../helpers/common';
 
 
 const initialState = {
@@ -62,7 +62,7 @@ const slice = createSlice({
       .addCase(changePassword.fulfilled, (state, action) => {
         state.errorMessage = '';
         console.log(action);
-      }) 
+      })
       .addCase(signIn.rejected, (state, action) => {
         // eslint-disable-next-line indent, @typescript-eslint/ban-ts-comment
         // @ts-ignore

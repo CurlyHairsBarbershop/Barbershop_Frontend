@@ -1,14 +1,24 @@
-import { useAppSelector } from '../../store/hooks/hooks';
+import { deleteCookie } from '../../helpers/common';
+import { actions } from '../../store/auth/slice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import {
   HeaderWrapper,
   Logo,
   SectionList,
   Section,
   SectionsWrapper,
+  SectionText,
+  SectionLogout,
 } from './styled';
 
 export const Header = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const dispatch = useAppDispatch();
+
+  const onLogOut = () => {
+    deleteCookie('token');
+    dispatch(actions.setAuth(false));
+  };
 
   return (
     <HeaderWrapper>
@@ -21,7 +31,11 @@ export const Header = () => {
           {isAuth && <Section to="/profile">Profile</Section>}
         </SectionList>
       </SectionsWrapper>
-      <Section to="/login">Login</Section>
+      {!isAuth ? (
+        <SectionLogout to="/login">Log In</SectionLogout>
+      ) : (
+        <SectionText onClick={onLogOut}>Log Out</SectionText>
+      )}
     </HeaderWrapper>
   );
 };

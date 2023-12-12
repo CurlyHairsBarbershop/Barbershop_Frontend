@@ -46,6 +46,7 @@ export const BarberList = () => {
 
   useEffect(() => {
     dispatch(getBarbers());
+    dispatch(getFavouriteBarbers(token as string));
   }, [dispatch, lastReview, lastEditedBarber, lastDeletedBarber]);
 
   return (
