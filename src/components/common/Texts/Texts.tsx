@@ -10,6 +10,10 @@ export const WhiteMainText = styled.p`
 export const TitleText = styled.p`
   font-size: 32px;
   font-weight: 700;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 export const WhiteTitleText = styled(TitleText)`
@@ -18,7 +22,11 @@ export const WhiteTitleText = styled(TitleText)`
 
 export const SecondaryText = styled.p`
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 400;
+
+    @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const WhiteSecondaryText = styled.p`

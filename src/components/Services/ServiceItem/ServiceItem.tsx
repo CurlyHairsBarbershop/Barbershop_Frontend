@@ -1,12 +1,14 @@
 import { FC, useState } from 'react';
-import { Wrapper } from './styled';
-import { Subtitle } from '../../common/Texts/Texts';
+import { ServiceName, Wrapper } from './styled';
 import { Service } from '../../../types/Service/Service';
 import { Button, Input, Modal } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 import { getCookie } from '../../../helpers/common';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { deleteService, editService } from '../../../store/commercial/asyncThunks';
+import {
+  deleteService,
+  editService,
+} from '../../../store/commercial/asyncThunks';
 
 type Props = {
   service: Service;
@@ -50,18 +52,19 @@ export const ServiceItem: FC<Props> = ({ service }) => {
   };
 
   const onDeleteService = () => {
-    dispatch(deleteService({token, id: service.id}));
+    dispatch(deleteService({ token, id: service.id }));
     closeModal();
   };
 
   return (
     <>
       <Wrapper>
-        <Subtitle>{service.name}</Subtitle>
+        <ServiceName>{service.name}</ServiceName>
 
-        <Subtitle>{service.cost}</Subtitle>
-
-        <Button onClick={showModal}>Edit</Button>
+        <ServiceName>{service.cost}</ServiceName>
+        {user?.email === 'admin@gmail.com' && (
+          <Button onClick={showModal}>Edit</Button>
+        )}
       </Wrapper>
       <Modal open={isOpen} title="Change password" footer={null}>
         <form onSubmit={handleSubmit(onSubmit)}>

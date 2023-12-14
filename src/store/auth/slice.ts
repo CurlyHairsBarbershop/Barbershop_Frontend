@@ -1,9 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { changePassword, getAccount, signIn, signInAdminAccount, signUp } from './asyncThunks';
-import { deleteCookie, setCookie } from '../../helpers/common';
+import { setCookie } from '../../helpers/common';
+import { User } from '../../types/User/User';
 
+interface InitialState {
+  user: User | null,
+  isAuth: boolean,
+  errorMessage: string,
 
-const initialState = {
+};
+
+const initialState: InitialState = {
   user: null,
   isAuth: false,
   errorMessage: '',

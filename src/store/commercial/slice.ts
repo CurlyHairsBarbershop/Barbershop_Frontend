@@ -42,7 +42,11 @@ const initialState: InitState = {
 const slice = createSlice({
   name: 'commercial',
   initialState,
-  reducers: {},
+  reducers: {
+    clearIsFavouriteBarberMessage: (state) => {
+      state.isFavouriteBarberMessage = '';
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getBarbers.fulfilled, (state, action) => {

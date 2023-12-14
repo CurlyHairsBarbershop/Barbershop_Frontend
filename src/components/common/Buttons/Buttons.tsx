@@ -16,6 +16,14 @@ export const CloseButton = styled(Button)`
 
   border: none;
   background-color: ${MainColor};
+
+  @media (max-width: 768px) {
+    top: -15px;
+    right: -20px;
+
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 export const EnrollButton = styled(Button)`
@@ -63,5 +71,10 @@ export const SubmitButton = styled.button`
   &:hover {
     border: 1px solid transparent !important;
     background-color: rgba(48, 78, 144, 0.8);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    width: 130px;
   }
 `;

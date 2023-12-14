@@ -42,7 +42,7 @@ export const BarberList = () => {
     if (token) {
       dispatch(getFavouriteBarbers(token as string));
     }
-  }, [isBarberAddedToFavourites]);
+  }, [dispatch, isBarberAddedToFavourites]);
 
   useEffect(() => {
     dispatch(getBarbers());

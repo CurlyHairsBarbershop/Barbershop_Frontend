@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../services/api';
+import { User } from '../../types/User/User';
 
 export const signUp = createAsyncThunk(
   '/account/register',
@@ -34,7 +35,7 @@ export const signInAdminAccount = createAsyncThunk(
   }
 );
 
-export const getAccount = createAsyncThunk('/account', async (token: string) => {
+export const getAccount = createAsyncThunk('/account', async (token: string): Promise<User> => {
   return await api.getAccount(token);
 });
 

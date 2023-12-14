@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { API_URL } from '../../env.ts';
 
 // class AxiosController {
 //   instance: AxiosInstance;
@@ -16,5 +15,5 @@ import { API_URL } from '../../env.ts';
 // });
 
 export const apiClient = axios.create({
-  baseURL: API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
 });
