@@ -13,6 +13,7 @@ import {
 
 export const Header = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
 
   const onLogOut = () => {
@@ -29,6 +30,9 @@ export const Header = () => {
           <Section to="/barbers">Barbers</Section>
           <Section to="/services">Services</Section>
           {isAuth && <Section to="/profile">Profile</Section>}
+          {user?.email === 'admin@gmail.com' && (
+            <Section to="/dashboard">Dashboard</Section>
+          )}
         </SectionList>
       </SectionsWrapper>
       {!isAuth ? (
