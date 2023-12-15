@@ -4,6 +4,7 @@ import { ConfigProvider, Tabs, type TabsProps } from 'antd';
 import { PersonalData } from './PersonalData/PersonalData';
 import { AppointmentList } from './AppointmentList/AppointmentList';
 import { Wrapper } from './styled';
+import { FavouriteBarberList } from '../Barbers/FavouriteBarbersList/FavouriteBarbersList';
 
 const items: TabsProps['items'] = [
   {
@@ -16,6 +17,11 @@ const items: TabsProps['items'] = [
     label: 'Appointments',
     children: <AppointmentList />,
   },
+  {
+    key: '3',
+    label: 'Favourite barbers',
+    children: <FavouriteBarberList />
+  }
 ];
 
 export const Profile: FC = () => {

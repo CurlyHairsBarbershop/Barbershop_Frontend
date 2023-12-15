@@ -4,6 +4,18 @@ import { MainColor, WhiteColor } from '../../../constants/colors';
 import { Card } from 'antd';
 import { HeartFilled } from '@ant-design/icons';
 
+export const Wrapper = styled.div`
+  width: 100%; 
+  position: relative;
+  max-width: 280px;
+  transition: transform 500ms;
+
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
 interface BarberCardWrapperProps {
   bgimage: string;
 }
@@ -13,14 +25,21 @@ export const BarberCardWrapper = styled(Card)<BarberCardWrapperProps>`
   max-width: 280px;
   width: 100%;
   height: 300px;
+
   background-size: cover;
-  transition: transform 500ms;
   background-image: ${(props) => `url(${props.bgimage})`};
   background-position: center;
+`;
 
-  &:hover {
-    transform: scale(1.05);
-  }
+export const FavouriteBarberCardWrapper = styled(Card)<BarberCardWrapperProps>`
+  position: relative;
+  max-width: 200px;
+  width: 100%;
+  height: 220px;
+  
+  background-size: cover;
+  background-image: ${(props) => `url(${props.bgimage})`};
+  background-position: center;
 `;
 
 export const BarberNameText = styled.p`
@@ -62,7 +81,7 @@ export const BarberWrapper = styled(Modal)`
 `;
 
 export const BarberImageContainer = styled.div`
-display: flex;
+  display: flex;
   width: 100%;
   /* max-width: 260px !important; */
   /* max-height: 240px !important; */
