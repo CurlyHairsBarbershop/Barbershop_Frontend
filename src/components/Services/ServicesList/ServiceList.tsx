@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 import { ServiceItem } from '../ServiceItem/ServiceItem';
-import { Wrapper } from './styled';
-import {
-  addService,
-  editService,
-  getServices,
-} from '../../../store/commercial/asyncThunks';
+import { Logo, SecondVector, Vector, Wrapper } from './styled';
+import { addService, getServices } from '../../../store/commercial/asyncThunks';
 import { useSpring, animated } from '@react-spring/web';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { Input } from 'antd';
+import { Image, Input } from 'antd';
 import { getCookie } from '../../../helpers/common';
+import vector from '../../../public/images/ServicePage/vector.svg';
+import vector2 from '../../../public/images/ServicePage/vector2.svg';
+import logo from '../../../public/images/Header/logo.svg';
 
 type EditService = {
   name: string;
@@ -45,8 +44,6 @@ export const ServiceList = () => {
 
   useEffect(() => {
     dispatch(getServices());
-    console.log(123);
-    
   }, [lastDeletedService, lastEditedService, newService]);
 
   const onSubmit: SubmitHandler<EditService> = (data) => {
@@ -66,6 +63,18 @@ export const ServiceList = () => {
 
   return (
     <Wrapper>
+      <Vector>
+        <Image src={vector} alt="vector" height={320} preview={false} />
+      </Vector>
+      
+      <SecondVector>
+        <Image src={vector2} alt="vector" height={160} preview={false} />
+      </SecondVector>
+
+      <Logo>
+        <Image src={logo} alt="logo" height={80} preview={false} />
+      </Logo>
+
       {services?.map((service) => (
         <ServiceItem service={service} key={service.id} />
       ))}
@@ -103,7 +112,9 @@ export const ServiceList = () => {
             <button>Accept</button>
           </form>
         </animated.div>
-      ): <></>}
+      ) : (
+        <></>
+      )}
     </Wrapper>
   );
 };

@@ -1,14 +1,22 @@
-import { FC } from 'react';
-import { Input, notification } from 'antd';
+import { FC, useEffect } from 'react';
+import { Image, Input, notification } from 'antd';
 import type { NotificationPlacement } from 'antd/es/notification/interface';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
-import { signIn, signInAdminAccount } from '../../store/auth/asyncThunks';
-import { LoginFormWrapper, Wrapper } from './styled';
+import {
+  getAccount,
+  signIn,
+  signInAdminAccount,
+} from '../../store/auth/asyncThunks';
+import { Form, LoginFormWrapper, Wrapper } from './styled';
 import { PageTitle, WhiteSecondaryText } from '../common/Texts/Texts';
 import { useNavigate } from 'react-router-dom';
 import { Controller, useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import logo from '../../public/images/Header/logo.svg';
+import { SubmitButton } from '../common/Buttons/Buttons';
+import { AuthRedirectLink } from '../common/Links/Links';
+import { getCookie } from '../../helpers/common';
 
 interface LoginModel {
   email: string;
@@ -32,8 +40,21 @@ export const LoginForm: FC = () => {
     resolver: yupResolver(schema),
   });
   const error = useAppSelector((state) => state.auth.errorMessage);
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const token = getCookie('token') as string;
+
+  useEffect(() => {
+    dispatch(getAccount(token));
+  }, []);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/home');
+    }
+  }, [isAuth]);
 
   const [api, contextHolder] = notification.useNotification();
+
   const openNotification = (placement: NotificationPlacement) => {
     api.info({
       message: 'You have been logged in succesfully',
@@ -46,7 +67,7 @@ export const LoginForm: FC = () => {
   const onSubmit: SubmitHandler<LoginModel> = async (data) => {
     const response = await dispatch(signIn(data));
     const adminResponse = await dispatch(signInAdminAccount(data));
-    
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     if (!response?.error || !adminResponse.error) {
@@ -61,8 +82,9 @@ export const LoginForm: FC = () => {
     <>
       {contextHolder}
       <Wrapper>
-        <PageTitle>Log in</PageTitle>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Image width={80} src={logo} preview={false} />
+          <PageTitle style={{ color: '#000' }}>Log in</PageTitle>
           <LoginFormWrapper>
             <Controller
               name="email"
@@ -81,10 +103,12 @@ export const LoginForm: FC = () => {
                 <Input.Password placeholder="Password" {...field} />
               )}
             />
-            <button type="submit">Log in</button>
+            <SubmitButton type="submit">Log in</SubmitButton>
           </LoginFormWrapper>
-        </form>
-        <WhiteSecondaryText>{error}</WhiteSecondaryText>
+          <WhiteSecondaryText>{error}</WhiteSecondaryText>
+
+          <AuthRedirectLink to="/signup">Create account</AuthRedirectLink>
+        </Form>
       </Wrapper>
     </>
   );

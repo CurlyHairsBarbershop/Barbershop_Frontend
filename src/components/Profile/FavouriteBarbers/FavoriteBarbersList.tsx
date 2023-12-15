@@ -3,7 +3,7 @@ import { Barber } from '../../../types/Barber/Barber';
 import { FavouriteBarbersWrapper } from './styles';
 
 type Props = {
-  barbers: Barber[];
+  barbers: UpperBarber[];
 };
 
 export const FavouriteBarbersList: FC<Props> = ({ barbers }) => {

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../services/api';
 import { Appointment, FullAppointment } from '../../types/Appointment/Appointment';
-import { BarberComment } from '../../types/Barber/BarberComment';
+import { BarberCommentBody } from '../../types/Barber/BarberComment';
 import { EditBarber } from '../../types/Barber/EditBarber';
 import { Service } from '../../types/Service/Service';
 
@@ -30,7 +30,7 @@ export const getSchedulePerBarber = createAsyncThunk('/getBarbersSchedule', asyn
 });
 
 
-export const leaveCommentBarber = createAsyncThunk('leaveCommentBarber', async ({ commentBody, token }: { commentBody: BarberComment, token: string }) => {
+export const leaveCommentBarber = createAsyncThunk('leaveCommentBarber', async ({ commentBody, token }: { commentBody: BarberCommentBody, token: string }) => {
   return await api.leaveCommentBarber(commentBody, token);
 });
 
