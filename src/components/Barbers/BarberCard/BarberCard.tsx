@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Barber } from '../../../types/Barber/Barber';
+import { Barber, UpperBarber } from '../../../types/Barber/Barber';
 import {
   BarberData,
   BarberWrapper,
@@ -16,6 +16,7 @@ import {
   Reviews,
   BarberImage,
   BarberImageContainer,
+  Wrapper,
 } from './stlyled';
 import { Col, Image, Input, Rate } from 'antd';
 import { SecondaryText, TitleText } from '../../common/Texts/Texts';
@@ -138,7 +139,7 @@ export const BarberCard: FC<Props> = ({ barber }) => {
           position: 'relative',
         }}
       >
-        <div style={{ width: '100%', position: 'relative', maxWidth: '280px' }}>
+        <Wrapper>
           {isAuth && (
             <LikeWrapper>
               {favouriteBarbers.find(
@@ -159,7 +160,7 @@ export const BarberCard: FC<Props> = ({ barber }) => {
           >
             <BarberNameText>{`${barber?.name} ${barber?.lastName}`}</BarberNameText>
           </BarberCardWrapper>
-        </div>
+        </Wrapper>
       </Col>
 
       <BarberWrapper
