@@ -4,9 +4,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
 `;
 
 export const AccountWrapper = styled.div`
@@ -19,7 +16,7 @@ export const AccountWrapper = styled.div`
   margin-bottom: 40px;
 
   border-radius: 24px;
-  
+
   background-color: #fff;
 `;
 
@@ -28,7 +25,7 @@ export const AccountSettings = styled.div`
   flex-direction: column;
   max-width: 60%;
   width: 100%;
-  gap: 40px;
+  gap: 20px;
 `;
 
 export const AccountSetting = styled.div`
@@ -37,23 +34,20 @@ export const AccountSetting = styled.div`
 `;
 
 export const AccountField = styled.p`
-
+  font-size: 18px;
 `;
 
 export const AccountValue = styled.p`
-
+  font-size: 18px;
+  text-align: center;
 `;
 
-export const AppointsWrapper = styled.div`
-max-width: 800px;
-width: 100%;
-display: grid;
-grid-template-columns: 1fr 1fr 1fr 1fr;
-justify-items: center;
-gap: 20px;
-padding: 20px;
-margin-bottom: 40px;
+export const PasswordContainer = styled.div`
+  position: relative;
+`;
 
-background-color: #fff;
-border-radius: 24px;
+export const ChangePasswordIcon = styled.div`
+  width: 24px;
+  height: 24px;
+  position: absolute;
 `;
