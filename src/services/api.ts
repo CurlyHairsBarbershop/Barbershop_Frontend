@@ -1,8 +1,7 @@
 import { apiClient } from '../lib/axios';
 import { Appointment } from '../types/Appointment/Appointment';
-import { Barber } from '../types/Barber/Barber';
 import { BarberCommentBody } from '../types/Barber/BarberComment';
-import { EditBarber } from '../types/Barber/EditBarber';
+import { AddBarber, EditBarber } from '../types/Barber/EditBarber';
 import { Service } from '../types/Service/Service';
 
 const apiInstance = apiClient;
@@ -76,8 +75,8 @@ export const api = {
 
     return data;
   },
-  addBarber: async (token: string, id: number, body: Barber) => {
-    const { data } = await apiInstance.post(`/barbers/${id}`, body, { headers: { 'Authorization': `Bearer ${token}` } });
+  addBarber: async (token: string, body: AddBarber) => {
+    const { data } = await apiInstance.post('/barbers', body, { headers: { 'Authorization': `Bearer ${token}` } });
 
     return data;
   },

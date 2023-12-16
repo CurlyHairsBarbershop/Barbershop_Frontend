@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../services/api';
 import { Appointment, FullAppointment } from '../../types/Appointment/Appointment';
 import { BarberCommentBody } from '../../types/Barber/BarberComment';
-import { EditBarber } from '../../types/Barber/EditBarber';
+import { AddBarber, EditBarber } from '../../types/Barber/EditBarber';
 import { Service } from '../../types/Service/Service';
 
 export const getBarbers = createAsyncThunk('/barbers', async (_, { rejectWithValue }) => {
@@ -68,4 +68,8 @@ export const editService = createAsyncThunk('editService', async ({ token, id, b
 
 export const deleteService = createAsyncThunk('deleteService', async ({ token, id }: { token: string, id: number }) => {
   return await api.deleteService(token, id);
+});
+
+export const addBarber = createAsyncThunk('addBarber', async ({ token, body }: { token: string, body: AddBarber }) => {
+  return await api.addBarber(token, body);
 });

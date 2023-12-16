@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addService, deleteBarber, deleteService, editBarber, editService, getAppointmentsPerUser, getBarbers, getFavouriteBarbers, getSchedulePerBarber, getServices, leaveCommentBarber, likeBarber, makeAppointment } from './asyncThunks';
+import { addBarber, addService, deleteBarber, deleteService, editBarber, editService, getAppointmentsPerUser, getBarbers, getFavouriteBarbers, getSchedulePerBarber, getServices, leaveCommentBarber, likeBarber, makeAppointment } from './asyncThunks';
 import { Barber, UpperBarber } from '../../types/Barber/Barber';
 import { Appointment, FullAppointment } from '../../types/Appointment/Appointment';
 import { Service } from '../../types/Service/Service';
@@ -15,9 +15,10 @@ interface InitState {
   lastAppointment: Appointment | null;
   favouriteBarbers: UpperBarber[],
   isFavouriteBarberMessage: string,
-  editedBarber: Barber | null,
-  deletedBarber: Barber | null,
+  editedBarberMessage: string,
+  deletedBarberMessage: string,
   newService: Service | null,
+  newBarber: Barber | null,
   editedService: Omit<Service, 'id'> | null,
   deletedService: Omit<Service, 'id'> | null,
 }
@@ -32,9 +33,10 @@ const initialState: InitState = {
   lastAppointment: null,
   favouriteBarbers: [],
   isFavouriteBarberMessage: '',
-  editedBarber: null,
-  deletedBarber: null,
+  editedBarberMessage: '',
+  deletedBarberMessage: '',
   newService: null,
+  newBarber: null,
   editedService: null,
   deletedService: null,
 };
@@ -45,7 +47,13 @@ const slice = createSlice({
   reducers: {
     clearIsFavouriteBarberMessage: (state) => {
       state.isFavouriteBarberMessage = '';
-    }
+    },
+    clearLastDeletedBarberMessage: (state) => {
+      state.deletedBarberMessage = '';
+    },
+    clearEditedBarberMessage: (state) => {
+      state.deletedBarberMessage = '';
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -89,11 +97,11 @@ const slice = createSlice({
       })
       .addCase(editBarber.fulfilled, (state, action) => {
         state.errorMessage = '';
-        state.editedBarber = action.payload;
+        state.editedBarberMessage = action.payload;
       })
       .addCase(deleteBarber.fulfilled, (state, action) => {
         state.errorMessage = '';
-        state.deletedBarber = action.payload;
+        state.deletedBarberMessage = action.payload;
       })
       .addCase(addService.fulfilled, (state, action) => {
         state.errorMessage = '';
@@ -106,6 +114,10 @@ const slice = createSlice({
       .addCase(deleteService.fulfilled, (state, action) => {
         state.errorMessage = '';
         state.deletedService = action.payload;
+      })
+      .addCase(addBarber.fulfilled, (state, action) => {
+        state.errorMessage = '';
+        state.newBarber = action.payload;
       });
   },
 });

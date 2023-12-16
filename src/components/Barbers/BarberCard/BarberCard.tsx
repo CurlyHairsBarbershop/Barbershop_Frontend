@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Barber, UpperBarber } from '../../../types/Barber/Barber';
+import { Barber } from '../../../types/Barber/Barber';
 import {
   BarberData,
   BarberWrapper,
@@ -12,39 +12,28 @@ import {
   ReviewFormWrapper,
   LikeWrapper,
   LikeIcon,
-  EditBarberWrapper,
   Reviews,
   BarberImage,
   BarberImageContainer,
   Wrapper,
 } from './stlyled';
-import { Col, Image, Input, Rate } from 'antd';
+import { Col, Rate } from 'antd';
 import { SecondaryText, TitleText } from '../../common/Texts/Texts';
 import { CloseButton, SubmitButton } from '../../common/Buttons/Buttons';
 import { CloseOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 import {
-  deleteBarber,
   dislikeBarber,
-  editBarber,
   leaveCommentBarber,
   likeBarber,
 } from '../../../store/commercial/asyncThunks';
 import { getCookie } from '../../../helpers/common';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { useSpring, animated } from '@react-spring/web';
+import { useForm } from 'react-hook-form';
 import { actions } from '../../../store/commercial/slice';
 
 type Props = {
   barber: Barber;
-};
-
-type EditBarberModel = {
-  name: string;
-  lastName: string;
-  email: string;
-  image: string;
 };
 
 export const BarberCard: FC<Props> = ({ barber }) => {
@@ -58,17 +47,8 @@ export const BarberCard: FC<Props> = ({ barber }) => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
 
   const dispatch = useAppDispatch();
-  const [rollOut, api] = useSpring(() => ({
-    from: { height: 0 },
-  }));
-  const { handleSubmit, control } = useForm<EditBarberModel>();
+  const { handleSubmit } = useForm();
 
-  const onOpenEdit = () => {
-    api.start({
-      from: { height: 0 },
-      to: { height: 300 },
-    });
-  };
 
   const onOpen = () => {
     setIsBarberShown(true);
@@ -96,13 +76,6 @@ export const BarberCard: FC<Props> = ({ barber }) => {
     }
   };
 
-  const onDeleteBarber = () => {
-    if (token) {
-      dispatch(deleteBarber({ token, id: barber.id }));
-      onClose();
-    }
-  };
-
   const onSubmit = () => {
     if (token) {
       dispatch(
@@ -116,12 +89,6 @@ export const BarberCard: FC<Props> = ({ barber }) => {
           token,
         }),
       );
-    }
-  };
-
-  const onEditSubmit: SubmitHandler<EditBarberModel> = (data) => {
-    if (token) {
-      dispatch(editBarber({ token, id: barber.id, body: data }));
     }
   };
 
@@ -218,42 +185,6 @@ export const BarberCard: FC<Props> = ({ barber }) => {
             )}
           </Reviews>
         </InfoWrapper>
-
-        {/* <button type="button" onClick={onOpenEdit}>
-          Edit
-        </button>
-        <animated.div style={{ ...rollOut, overflow: 'hidden' }}>
-          <form onSubmit={handleSubmit(onEditSubmit)}>
-            <EditBarberWrapper>
-              <Controller
-                name="name"
-                control={control}
-                render={({ field }) => <Input placeholder="Name" {...field} />}
-              />
-              <Controller
-                name="lastName"
-                control={control}
-                render={({ field }) => (
-                  <Input placeholder="Last Name" {...field} />
-                )}
-              />
-              <Controller
-                name="email"
-                control={control}
-                render={({ field }) => <Input placeholder="Email" {...field} />}
-              />
-              <Controller
-                name="image"
-                control={control}
-                render={({ field }) => <Input placeholder="Image" {...field} />}
-              />
-            </EditBarberWrapper>
-            <button>Change a barber</button>
-            <button type="button" onClick={onDeleteBarber}>
-              Delete a barber
-            </button>
-          </form>
-        </animated.div> */}
       </BarberWrapper>
     </>
   );
