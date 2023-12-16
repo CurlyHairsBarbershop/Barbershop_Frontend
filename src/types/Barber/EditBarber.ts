@@ -6,7 +6,7 @@ export interface EditBarber {
 };
 
 export interface AddBarber {
-  name: string;
+  firstName: string;
   lastName: string;
   email: string;
   image: string;

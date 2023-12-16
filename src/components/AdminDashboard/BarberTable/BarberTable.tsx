@@ -21,6 +21,9 @@ export const BarberTable = () => {
   const editedBarberMessage = useAppSelector(
     (state) => state.commercial.editedBarberMessage,
   );
+  const newBarberMessage = useAppSelector(
+    (state) => state.commercial.newBarber,
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [barberIdToEdit, setBarberIdToEdit] = useState<number | null>(null);
@@ -118,7 +121,7 @@ export const BarberTable = () => {
 
   useEffect(() => {
     dispatch(getBarbers());
-  }, [dispatch, deletedBarberMessage, editedBarberMessage]);
+  }, [dispatch, deletedBarberMessage, editedBarberMessage, newBarberMessage]);
 
   return (
     <>

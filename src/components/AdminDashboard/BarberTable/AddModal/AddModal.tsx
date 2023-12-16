@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../../../store/hooks/hooks';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { getCookie } from '../../../../helpers/common';
 import { addBarber } from '../../../../store/commercial/asyncThunks';
+import { actions } from '../../../../store/commercial/slice';
 
 type Props = {
   isAddModalOpen: boolean;
@@ -11,7 +12,7 @@ type Props = {
 };
 
 type AddBarberModel = {
-  name: string;
+  firstName: string;
   lastName: string;
   email: string;
   image: string;
@@ -27,6 +28,7 @@ export const AddModal: FC<Props> = ({
 
   const onSubmit: SubmitHandler<AddBarberModel> = (data) => {
     if (token) {
+      dispatch(actions.clearLastBarber);
       dispatch(addBarber({ token, body: data }));
     }
   };
@@ -41,9 +43,9 @@ export const AddModal: FC<Props> = ({
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
-          name="name"
+          name="firstName"
           control={control}
-          render={({ field }) => <Input placeholder="Name" {...field} />}
+          render={({ field }) => <Input placeholder="First Name" {...field} />}
         />
         <Controller
           name="lastName"

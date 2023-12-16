@@ -73,3 +73,7 @@ export const deleteService = createAsyncThunk('deleteService', async ({ token, i
 export const addBarber = createAsyncThunk('addBarber', async ({ token, body }: { token: string, body: AddBarber }) => {
   return await api.addBarber(token, body);
 });
+
+export const cancelAppointment = createAsyncThunk('cancelAppointment', async({ token, id }: { token: string, id: number }) => {
+  return await api.cancelAppointment(token, id);
+});

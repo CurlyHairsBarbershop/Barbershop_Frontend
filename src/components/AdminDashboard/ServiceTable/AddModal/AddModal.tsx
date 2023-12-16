@@ -5,7 +5,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { getCookie } from '../../../../helpers/common';
 import { addService } from '../../../../store/commercial/asyncThunks';
 import { Service } from '../../../../types/Service/Service';
-// TODO: test
+import { actions } from '../../../../store/commercial/slice';
 type Props = {
   isAddModalOpen: boolean;
   handleClose: () => void;
@@ -22,6 +22,7 @@ export const AddModal: FC<Props> = ({
 
   const onSubmit: SubmitHandler<Omit<Service, 'id'>> = (data) => {
     if (token) {
+      dispatch(actions.clearLastService());
       dispatch(addService({ token, body: data }));
     }
   };
@@ -43,12 +44,12 @@ export const AddModal: FC<Props> = ({
         <Controller
           name="description"
           control={control}
-          render={({ field }) => <Input placeholder="Last Name" {...field} />}
+          render={({ field }) => <Input placeholder="Description" {...field} />}
         />
         <Controller
           name="cost"
           control={control}
-          render={({ field }) => <Input placeholder="Last Name" {...field} />}
+          render={({ field }) => <Input placeholder="Cost" {...field} />}
         />
         <button>Add a Service</button>
       </form>

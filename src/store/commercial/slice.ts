@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addBarber, addService, deleteBarber, deleteService, editBarber, editService, getAppointmentsPerUser, getBarbers, getFavouriteBarbers, getSchedulePerBarber, getServices, leaveCommentBarber, likeBarber, makeAppointment } from './asyncThunks';
+import { addBarber, addService, cancelAppointment, deleteBarber, deleteService, editBarber, editService, getAppointmentsPerUser, getBarbers, getFavouriteBarbers, getSchedulePerBarber, getServices, leaveCommentBarber, likeBarber, makeAppointment } from './asyncThunks';
 import { Barber, UpperBarber } from '../../types/Barber/Barber';
 import { Appointment, FullAppointment } from '../../types/Appointment/Appointment';
 import { Service } from '../../types/Service/Service';
@@ -13,14 +13,15 @@ interface InitState {
   schedulePerBarber: Date[];
   lastReview: Review | null;
   lastAppointment: Appointment | null;
+  lastBarber: string;
   favouriteBarbers: UpperBarber[],
   isFavouriteBarberMessage: string,
   editedBarberMessage: string,
   deletedBarberMessage: string,
-  newService: Service | null,
-  newBarber: Barber | null,
-  editedService: Omit<Service, 'id'> | null,
-  deletedService: Omit<Service, 'id'> | null,
+  newService: string,
+  newBarber: string,
+  editedServiceMessage: string,
+  deletedServiceMessage: string,
 }
 
 const initialState: InitState = {
@@ -31,14 +32,15 @@ const initialState: InitState = {
   schedulePerBarber: [],
   lastReview: null,
   lastAppointment: null,
+  lastBarber: '',
   favouriteBarbers: [],
   isFavouriteBarberMessage: '',
   editedBarberMessage: '',
   deletedBarberMessage: '',
-  newService: null,
-  newBarber: null,
-  editedService: null,
-  deletedService: null,
+  newService: '',
+  newBarber: '',
+  editedServiceMessage: '',
+  deletedServiceMessage: '',
 };
 
 const slice = createSlice({
@@ -53,6 +55,18 @@ const slice = createSlice({
     },
     clearEditedBarberMessage: (state) => {
       state.deletedBarberMessage = '';
+    },
+    clearEditedServiceMessage: (state) => {
+      state.editedServiceMessage = '';
+    },
+    clearDeletedServiceMessage: (state) => {
+      state.deletedServiceMessage = '';
+    },
+    clearLastBarber: (state) => {
+      state.newBarber = '';
+    },
+    clearLastService: (state) => {
+      state.newService = '';
     },
   },
   extraReducers: (builder) => {
@@ -109,15 +123,19 @@ const slice = createSlice({
       })
       .addCase(editService.fulfilled, (state, action) => {
         state.errorMessage = '';
-        state.editedService = action.payload;
+        state.editedServiceMessage = action.payload;
       })
       .addCase(deleteService.fulfilled, (state, action) => {
         state.errorMessage = '';
-        state.deletedService = action.payload;
+        state.deletedServiceMessage = action.payload;
       })
       .addCase(addBarber.fulfilled, (state, action) => {
         state.errorMessage = '';
         state.newBarber = action.payload;
+      })
+      .addCase(cancelAppointment.fulfilled, (state, action) => {
+        console.log(action.payload);
+
       });
   },
 });

@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { ConfigProvider, Tabs, type TabsProps } from 'antd';
-// import { ServiceTable } from './ServicesTable/ServiceTable';
 import { BarberTable } from './BarberTable/BarberTable';
+import { ServiceTable } from './ServiceTable/ServiceTable';
+import { AppointmentTable } from './AppointmentTable/AppointmentTabel';
 
 const items: TabsProps['items'] = [
   {
@@ -12,12 +13,12 @@ const items: TabsProps['items'] = [
   {
     key: '2',
     label: 'Manage services',
-    children: '<ServiceTable />',
+    children: <ServiceTable />,
   },
   {
     key: '3',
     label: 'Manage appointments',
-    children: 'Here must be table with appointments',
+    children: <AppointmentTable />,
   },
 ];
 

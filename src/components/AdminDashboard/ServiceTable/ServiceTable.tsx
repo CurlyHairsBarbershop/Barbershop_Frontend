@@ -3,26 +3,27 @@ import { Button, Table } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 import {
   deleteService,
-  getBarbers,
+  getServices,
 } from '../../../store/commercial/asyncThunks';
 import { ColumnType } from 'antd/es/table';
 import { getCookie } from '../../../helpers/common';
 import { actions } from '../../../store/commercial/slice';
 import { EditModal } from './EditModal/EditModal';
 import { AddModal } from './AddModal/AddModal';
+// import { EditModal } from './EditModal/EditModal';
+// import { AddModal } from './AddModal/AddModal';
 
-export const BarberTable = () => {
+export const ServiceTable = () => {
   const dispatch = useAppDispatch();
   const services = useAppSelector((state) => state.commercial.services);
   const token = getCookie('token') as string;
-  // TODO: Fix deleted service message 
   const deletedServiceMessage = useAppSelector(
-    (state) => state.commercial.deletedService,
+    (state) => state.commercial.deletedServiceMessage,
   );
-  // TODO: Fix deleted service message 
   const editedServiceMessage = useAppSelector(
-    (state) => state.commercial.editedService,
+    (state) => state.commercial.editedServiceMessage,
   );
+  const lastService = useAppSelector((state) => state.commercial.newService);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [serviceIdToEdit, setServiceIdToEdit] = useState<number | null>(null);
@@ -62,7 +63,7 @@ export const BarberTable = () => {
       dataIndex: 'description',
     },
     {
-      title: 'cost',
+      title: 'Cost',
       dataIndex: 'cost',
     },
     {
@@ -91,8 +92,7 @@ export const BarberTable = () => {
         dataSource.length >= 1 ? (
           <Button
             onClick={() => {
-              // TODO: Fix
-              dispatch(actions.clearLastDeletedBarberMessage());
+              dispatch(actions.clearDeletedServiceMessage());
               dispatch(
                 deleteService({ token, id: Number(record.key.toString()) }),
               );
@@ -105,8 +105,8 @@ export const BarberTable = () => {
   ];
 
   useEffect(() => {
-    dispatch(getBarbers());
-  }, [dispatch, deletedServiceMessage, editedServiceMessage]);
+    dispatch(getServices());
+  }, [dispatch, editedServiceMessage, deletedServiceMessage, lastService]);
 
   return (
     <>
@@ -114,11 +114,12 @@ export const BarberTable = () => {
         Create service
       </Button>
       <Table dataSource={dataSource} columns={columns}></Table>
+      isModalOpen={isModalOpen}
       <EditModal
         isModalOpen={isModalOpen}
         handleClose={handleClose}
-        barberIdToEdit={serviceIdToEdit}
-        barbers={services}
+        serviceIdToEdit={serviceIdToEdit}
+        services={services}
       />
       <AddModal
         isAddModalOpen={isAddModalOpen}

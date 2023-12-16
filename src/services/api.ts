@@ -99,5 +99,10 @@ export const api = {
     const { data } = await apiInstance.delete(`/favors/${id}`, { headers: { 'Authorization': `Bearer ${token}` } });
 
     return data;
+  },
+  cancelAppointment: async (token: string, id: number) => {
+    const { data } = await apiInstance.patch(`/appointments/cancel/${id}`, id,{ headers: { 'Authorization': `Bearer ${token}` } });
+
+    return data;
   }
 };
