@@ -1,5 +1,5 @@
 import { Image } from 'antd';
-import { deleteCookie } from '../../helpers/common';
+import { deleteCookie, getCookie } from '../../helpers/common';
 import { actions } from '../../store/auth/slice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
 import {
@@ -15,11 +15,22 @@ import {
   MobileHeaderActions,
 } from './styled';
 import { useSpring } from '@react-spring/web';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getAccount } from '../../store/auth/asyncThunks';
 
 export const Header = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const token = getCookie('token');
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getAccount(token as string));
+    }
+  }, []);
 
   const [springs, api] = useSpring(() => ({
     from: { x: '-100%' },
@@ -36,6 +47,7 @@ export const Header = () => {
   const onLogOut = () => {
     deleteCookie('token');
     dispatch(actions.setAuth(false));
+    navigate('/home');
   };
 
   return (

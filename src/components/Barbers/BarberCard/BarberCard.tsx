@@ -49,6 +49,16 @@ export const BarberCard: FC<Props> = ({ barber }) => {
   const dispatch = useAppDispatch();
   const { handleSubmit } = useForm();
 
+  function base64toBlob(base64: string, contentType: string = 'image/jpeg') {
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new Blob([bytes], { type: contentType });
+  }
+
 
   const onOpen = () => {
     setIsBarberShown(true);
@@ -121,7 +131,7 @@ export const BarberCard: FC<Props> = ({ barber }) => {
 
           <BarberCardWrapper
             bgimage={
-              'https://gentlemensclub.com.ua/storage/barbers/October2023/N5PTEfNBm9Erz49spyzB.jpg'
+              URL.createObjectURL(base64toBlob(barber.imageUrl))
             }
             onClick={onOpen}
           >
@@ -147,7 +157,7 @@ export const BarberCard: FC<Props> = ({ barber }) => {
                 style={{ borderRadius: '16px' }}
                 // src={barber.imageUrl}
                 src={
-                  'https://gentlemensclub.com.ua/storage/barbers/October2023/N5PTEfNBm9Erz49spyzB.jpg'
+                  URL.createObjectURL(base64toBlob(barber.imageUrl))
                 }
               />
             </BarberImageContainer>

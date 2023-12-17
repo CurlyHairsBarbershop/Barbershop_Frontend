@@ -10,16 +10,13 @@ import { getAccount } from '../../store/auth/asyncThunks';
 export const MainLayout: React.FC = () => {
   const dispatch = useAppDispatch();
   const token = getCookie('token');
-  
-  
+
   useEffect(() => {
     dispatch(getBarbers());
 
-    if(token) {
+    if (token) {
       dispatch(getAccount(token as string));
     }
-
-    console.log('123');
   }, []);
 
   return (

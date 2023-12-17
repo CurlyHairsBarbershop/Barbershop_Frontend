@@ -2,7 +2,7 @@ export interface EditBarber {
   name: string;
   lastName: string;
   email: string;
-  imageUrl: string;
+  image: string;
 };
 
 export interface AddBarber {
