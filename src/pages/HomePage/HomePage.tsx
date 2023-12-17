@@ -1,6 +1,4 @@
 import React from 'react';
-// import { getCookie } from '../../helpers/common';
-// import { Button } from 'antd';
 import { Container } from '../../components/common/Container/Container';
 import { MainSlider } from '../../components/Slider/MainSlider';
 import bgVideo from '../../public/videos/HomePage/bgVideo2.mp4';

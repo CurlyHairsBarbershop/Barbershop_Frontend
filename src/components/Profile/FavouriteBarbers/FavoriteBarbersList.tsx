@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Barber } from '../../../types/Barber/Barber';
 import { FavouriteBarbersWrapper } from './styles';
+import { UpperBarber } from '../../../types/Barber/Barber';
 
 type Props = {
   barbers: UpperBarber[];
@@ -13,7 +13,7 @@ export const FavouriteBarbersList: FC<Props> = ({ barbers }) => {
     <>
       <FavouriteBarbersWrapper>
         {barbers.map((barber) => (
-          <p key={barber.id}>{barber.Email}</p>
+          <p key={barber.Id}>{barber.Email}</p>
         ))}
       </FavouriteBarbersWrapper>
     </>
