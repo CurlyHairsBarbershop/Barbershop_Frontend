@@ -26,15 +26,19 @@ export const AppointmentTable: FC = () => {
       <AppointsWrapper>
         {appointments ? (
           <>
+            <TableTitle>Status</TableTitle>
             <TableTitle>Date</TableTitle>
+            <TableTitle>Client name</TableTitle>
             <TableTitle>Barber name</TableTitle>
             <TableTitle>Total cost</TableTitle>
             <TableTitle>Services</TableTitle>
             <TableTitle>Cancel Action</TableTitle>
             {appointments.map((appointment) => (
               <Fragment key={appointment.id}>
+                <p>{!appointment.cancelled ? 'Active' : 'Canceled'}</p>
                 <p>{dayjs(appointment.at).format('ddd DD, MM, YYYY')}</p>
                 <p>{`${appointment.barber.name} ${appointment.barber.lastName}`}</p>
+                <p>{`${appointment?.customer?.name} ${appointment?.customer?.lastName}`}</p>
                 <p>{calculateTotalCost(appointment.favors)}</p>
                 <p>
                   {appointment.favors.map((favor) => favor.name).join(', ')}

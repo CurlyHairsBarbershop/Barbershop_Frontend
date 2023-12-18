@@ -10,13 +10,13 @@ export const Wrapper = styled.div`
   padding: 20px;
 
   background-color: #fff;
-  border-radius: 24px;
+  border-radius: 8px 8px 0px 0px;
 `;
 
 export const AppointsWrapper = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   justify-items: center;
   gap: 20px;
   padding: 20px;
