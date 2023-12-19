@@ -13,4 +13,10 @@ export interface FullAppointment {
   at: Date;
   barber: Barber;
   favors: Service[];
+  customer?: {
+    name?: string,
+    lastName?: string,
+    email?: string,
+  };
+  cancelled: boolean,
 }

@@ -21,9 +21,6 @@ export const PersonalData = () => {
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
 
-  // const favouriteBarbers = useAppSelector(
-  //   (state) => state.commercial.favouriteBarbers,
-  // );
   const token = getCookie('token') as string;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -76,8 +73,6 @@ export const PersonalData = () => {
         </AccountSettings>
         <Button style={{marginTop: '20px'}} onClick={showModal}>Change password</Button>
       </AccountWrapper>
-
-      {/* {favouriteBarbers.length && <FavouriteBarbersList barbers={favouriteBarbers} />} */}
 
       <ChangePasswordModal isOpen={isModalOpen} handleClose={closeModal} />
     </Wrapper>

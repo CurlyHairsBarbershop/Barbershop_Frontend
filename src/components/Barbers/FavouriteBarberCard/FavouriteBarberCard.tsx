@@ -12,6 +12,18 @@ type Props = {
 };
 
 export const FavouriteBarberCard: FC<Props> = ({ barber }) => {
+  
+  function base64toBlob(base64: string, contentType: string = 'image/jpeg') {
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new Blob([bytes], { type: contentType });
+  }
+
+  
   return (
     <Col
       xl={{ span: 6 }}
@@ -28,7 +40,7 @@ export const FavouriteBarberCard: FC<Props> = ({ barber }) => {
       <Wrapper>
         <FavouriteBarberCardWrapper
           bgimage={
-            'https://gentlemensclub.com.ua/storage/barbers/October2023/N5PTEfNBm9Erz49spyzB.jpg'
+            URL.createObjectURL(base64toBlob(barber.ImageUrl))
           }
         >
           <BarberNameText>{`${barber?.Name} ${barber?.LastName}`}</BarberNameText>

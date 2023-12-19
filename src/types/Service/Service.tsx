@@ -4,3 +4,9 @@ export interface Service {
   cost: number,
   description: string,
 }
+
+export interface Service {
+  name: string,
+  cost: number,
+  description: string,
+}
