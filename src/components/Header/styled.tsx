@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Image } from 'antd';
 import { NavLink } from 'react-router-dom';
+import { animated } from '@react-spring/web';
+import { DarkColor } from '../../constants/colors';
 
 export const HeaderWrapper = styled.header`
   display: flex;
@@ -40,6 +42,10 @@ export const SectionList = styled.div`
   padding: 0;
 
   list-style: none;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const Section = styled(NavLink)`
@@ -54,5 +60,76 @@ export const Section = styled(NavLink)`
   font-size: 20px;
   font-weight: 700;
   color: #fff;
-  border-radius: 12px
+  border-radius: 12px;
+`;
+
+export const SectionLogout = styled(Section)`
+  border-radius: 16px !important;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(54, 68, 88, 0.7) !important;
+  }
+`;
+
+export const SectionText = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding-inline: 12px;
+  text-decoration: none;
+  height: 50px;
+
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 16px !important;
+
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(54, 68, 88, 0.7) !important;
+  }
+`;
+
+export const MenuIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+
+  background-color: rgba(54, 68, 88, 0.7);
+  border-radius: 8px;
+  cursor: pointer;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+export const MenuWrapper = styled(animated.div)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  padding: 30px;
+  overflow-y: hidden;
+
+  position: fixed;
+  top: 0;
+
+  background: ${DarkColor};
+  z-index: 1000;
+`;
+
+export const MenuSection = styled(Section)`
+  width: 100%;
+`;
+
+export const MobileHeaderActions = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `;

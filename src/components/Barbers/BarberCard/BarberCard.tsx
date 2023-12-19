@@ -12,34 +12,28 @@ import {
   ReviewFormWrapper,
   LikeWrapper,
   LikeIcon,
-  EditBarberWrapper,
+  Reviews,
+  BarberImage,
+  BarberImageContainer,
+  Wrapper,
 } from './stlyled';
-import { Col, Image, Input, Rate } from 'antd';
+import { Col, Rate } from 'antd';
 import { SecondaryText, TitleText } from '../../common/Texts/Texts';
-import { CloseButton } from '../../common/Buttons/Buttons';
+import { CloseButton, SubmitButton } from '../../common/Buttons/Buttons';
 import { CloseOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/hooks';
 import {
-  deleteBarber,
   dislikeBarber,
-  editBarber,
   leaveCommentBarber,
   likeBarber,
 } from '../../../store/commercial/asyncThunks';
 import { getCookie } from '../../../helpers/common';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { useSpring, animated } from '@react-spring/web';
+import { useForm } from 'react-hook-form';
+import { actions } from '../../../store/commercial/slice';
 
 type Props = {
   barber: Barber;
-};
-
-type EditBarberModel = {
-  name: string;
-  lastName: string;
-  email: string;
-  image: string;
 };
 
 export const BarberCard: FC<Props> = ({ barber }) => {
@@ -50,19 +44,21 @@ export const BarberCard: FC<Props> = ({ barber }) => {
   const favouriteBarbers = useAppSelector(
     (state) => state.commercial.favouriteBarbers,
   );
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
 
   const dispatch = useAppDispatch();
-  const [rollOut, api] = useSpring(() => ({
-    from: { height: 0 },
-  }));
-  const { handleSubmit, control } = useForm<EditBarberModel>();
+  const { handleSubmit } = useForm();
 
-  const onOpenEdit = () => {
-    api.start({
-      from: { height: 0 },
-      to: { height: 300 },
-    });
-  };
+  function base64toBlob(base64: string, contentType: string = 'image/jpeg') {
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new Blob([bytes], { type: contentType });
+  }
+
 
   const onOpen = () => {
     setIsBarberShown(true);
@@ -79,19 +75,14 @@ export const BarberCard: FC<Props> = ({ barber }) => {
   const onLikeBarber = () => {
     if (token) {
       dispatch(likeBarber({ token, id: barber.id }));
+      dispatch(actions.clearIsFavouriteBarberMessage());
     }
   };
 
   const onDislikeBarber = () => {
     if (token) {
       dispatch(dislikeBarber({ token, id: barber.id }));
-    }
-  };
-
-  const onDeleteBarber = () => {
-    if (token) {
-      dispatch(deleteBarber({ token, id: barber.id }));
-      onClose();
+      dispatch(actions.clearIsFavouriteBarberMessage());
     }
   };
 
@@ -111,33 +102,44 @@ export const BarberCard: FC<Props> = ({ barber }) => {
     }
   };
 
-  const onEditSubmit: SubmitHandler<EditBarberModel> = (data) => {
-    if (token) {
-      dispatch(editBarber({ token, id: barber.id, body: data }));
-    }
-  };
-
   return (
     <>
-      <Col span={6}>
-        <BarberCardWrapper
-          bgimage={
-            'https://gentlemensclub.com.ua/storage/barbers/October2023/N5PTEfNBm9Erz49spyzB.jpg'
-          }
-          onClick={onOpen}
-        >
-          <LikeWrapper>
-            {favouriteBarbers.find(
-              (favouriteBarber) => favouriteBarber.Id === barber.id,
-            ) ? (
-                <LikeIcon onClick={onDislikeBarber} isFilled={true} />
-              ) : (
-                <LikeIcon onClick={onLikeBarber} />
-              )}
-          </LikeWrapper>
-          <BarberNameText>{`${barber?.name} ${barber?.lastName}`}</BarberNameText>
-        </BarberCardWrapper>
+      <Col
+        xl={{ span: 6 }}
+        lg={{ span: 8 }}
+        md={{ span: 12 }}
+        sm={{ span: 24 }}
+        xs={{ span: 24 }}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          position: 'relative',
+        }}
+      >
+        <Wrapper>
+          {isAuth && (
+            <LikeWrapper>
+              {favouriteBarbers.find(
+                (favouriteBarber) => favouriteBarber.Id === barber.id,
+              ) ? (
+                  <LikeIcon onClick={onDislikeBarber} isFilled={true} />
+                ) : (
+                  <LikeIcon onClick={onLikeBarber} />
+                )}
+            </LikeWrapper>
+          )}
+
+          <BarberCardWrapper
+            bgimage={
+              URL.createObjectURL(base64toBlob(barber.imageUrl))
+            }
+            onClick={onOpen}
+          >
+            <BarberNameText>{`${barber?.name} ${barber?.lastName}`}</BarberNameText>
+          </BarberCardWrapper>
+        </Wrapper>
       </Col>
+
       <BarberWrapper
         open={isBarberShown}
         footer={null}
@@ -147,12 +149,19 @@ export const BarberCard: FC<Props> = ({ barber }) => {
         <CloseButton onClick={onClose}>
           <CloseOutlined style={{ color: '#fff', fontSize: '24px' }} />
         </CloseButton>
+
         <InfoWrapper>
           <BarberInfo>
-            <Image
-              style={{ width: '100%', maxWidth: '240px', display: 'block' }}
-              src={barber.imageUrl}
-            />
+            <BarberImageContainer>
+              <BarberImage
+                style={{ borderRadius: '16px' }}
+                // src={barber.imageUrl}
+                src={
+                  URL.createObjectURL(base64toBlob(barber.imageUrl))
+                }
+              />
+            </BarberImageContainer>
+
             <BarberData>
               <TitleText>{barber?.name}</TitleText>
               <SecondaryText>{barber?.email}</SecondaryText>
@@ -160,56 +169,32 @@ export const BarberCard: FC<Props> = ({ barber }) => {
               <SecondaryText>{barber?.description}</SecondaryText>
             </BarberData>
           </BarberInfo>
-          <ReviewWrapper title="Barber comments">
-            {barber.reviews.map((review, i) => (
-              <ReviewCard key={i}>
-                <p>{review.content}</p>
-              </ReviewCard>
-            ))}
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <ReviewFormWrapper>
-                <Rate onChange={setScore} value={score} />
-                <TextArea onChange={onChange} />
-                <button type="submit">Comment</button>
-              </ReviewFormWrapper>
-            </form>
-          </ReviewWrapper>
+
+          <Reviews>
+            <p style={{ fontSize: '20px' }}>Barber comments</p>
+            <ReviewWrapper>
+              {barber.reviews.map((review, i) => (
+                <ReviewCard key={i}>
+                  <p>{`${review.publisher.name} ${review.publisher.lastName}`}</p>
+                  <Rate value={review.rating} disabled={true} />
+                  <p>{review.content}</p>
+                </ReviewCard>
+              ))}
+            </ReviewWrapper>
+            {isAuth && (
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <ReviewFormWrapper>
+                  <Rate onChange={setScore} value={score} />
+                  <TextArea
+                    onChange={onChange}
+                    placeholder="Write a comment..."
+                  />
+                  <SubmitButton type="submit">Comment</SubmitButton>
+                </ReviewFormWrapper>
+              </form>
+            )}
+          </Reviews>
         </InfoWrapper>
-        <button type="button" onClick={onOpenEdit}>
-          Edit
-        </button>
-        <animated.div style={{ ...rollOut, overflow: 'hidden' }}>
-          <form onSubmit={handleSubmit(onEditSubmit)}>
-            <EditBarberWrapper>
-              <Controller
-                name="name"
-                control={control}
-                render={({ field }) => <Input placeholder="Name" {...field} />}
-              />
-              <Controller
-                name="lastName"
-                control={control}
-                render={({ field }) => (
-                  <Input placeholder="Last Name" {...field} />
-                )}
-              />
-              <Controller
-                name="email"
-                control={control}
-                render={({ field }) => <Input placeholder="Email" {...field} />}
-              />
-              <Controller
-                name="image"
-                control={control}
-                render={({ field }) => <Input placeholder="Image" {...field} />}
-              />
-            </EditBarberWrapper>
-            <button>Change a barber</button>
-            <button type="button" onClick={onDeleteBarber}>
-              Delete a barber
-            </button>
-          </form>
-        </animated.div>
       </BarberWrapper>
     </>
   );

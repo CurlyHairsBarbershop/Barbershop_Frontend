@@ -4,6 +4,9 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
 `;
 
 export const AccountWrapper = styled.div`
@@ -52,5 +55,5 @@ padding: 20px;
 margin-bottom: 40px;
 
 background-color: #fff;
-border-radius: 24px
+border-radius: 24px;
 `;

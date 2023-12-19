@@ -11,6 +11,7 @@ import { SignUpPage } from './pages/SignUpPage/SignUpPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { ProfilePage } from './pages/ProfilePage/ProfilePage';
 import { EnrollPage } from './pages/EnrollPage/EnrollPage';
+import { AdminDashboardPage } from './pages/AdminDashboardPage/AdminDashboardPage';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: 'enroll',
         element: <EnrollPage />,
+      },
+      {
+        path: 'dashboard',
+        element: <AdminDashboardPage />,
       },
     ],
   },

@@ -16,6 +16,14 @@ export const CloseButton = styled(Button)`
 
   border: none;
   background-color: ${MainColor};
+
+  @media (max-width: 768px) {
+    top: -15px;
+    right: -20px;
+
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 export const EnrollButton = styled(Button)`
@@ -29,11 +37,44 @@ export const EnrollButton = styled(Button)`
   text-transform: uppercase;
   border-color: transparent;
 
-  transition: border-color 1s,  background-color 0.5s;
-  
+  transition:
+    border-color 1s,
+    background-color 0.5s;
+
   &:hover {
     border: 1px solid transparent !important;
     color: #fff !important;
     background-color: rgba(255, 255, 255, 0.4);
+  }
+`;
+
+export const SubmitButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 150px;
+  height: 40px;
+  padding: 12px 16px;
+
+  background-color: ${MainColor};
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
+  border-color: transparent;
+  border-radius: 12px;
+
+  transition:
+    border-color 1s,
+    background-color 0.5s;
+
+  &:hover {
+    border: 1px solid transparent !important;
+    background-color: rgba(48, 78, 144, 0.8);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    width: 130px;
   }
 `;

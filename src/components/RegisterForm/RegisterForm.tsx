@@ -1,14 +1,18 @@
-import { FC } from 'react';
-import { Input, notification } from 'antd';
+import { FC, useEffect } from 'react';
+import { Image, Input, notification } from 'antd';
 import type { NotificationPlacement } from 'antd/es/notification/interface';
-import { useAppDispatch } from '../../store/hooks/hooks';
-import { signUp } from '../../store/auth/asyncThunks';
-import { RegisterFormWrapper, Wrapper } from './styled';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
+import { getAccount, signUp } from '../../store/auth/asyncThunks';
+import { Form, RegisterFormWrapper, Wrapper } from './styled';
 import { PageTitle } from '../common/Texts/Texts';
 import { useNavigate } from 'react-router-dom';
 import { Controller, useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import logo from '../../public/images/Header/logo.svg';
+import { SubmitButton } from '../common/Buttons/Buttons';
+import { AuthRedirectLink } from '../common/Links/Links';
+import { getCookie } from '../../helpers/common';
 
 interface RegisterModel {
   email: string;
@@ -42,6 +46,19 @@ export const RegisterForm: FC = () => {
     resolver: yupResolver(schema),
   });
 
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const token = getCookie('token') as string;
+
+  useEffect(() => {
+    dispatch(getAccount(token));
+  }, []);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/home');
+    }
+  }, [isAuth]);
+
   const openNotification = (placement: NotificationPlacement) => {
     api.info({
       message: 'You have been singed up succesfully',
@@ -66,8 +83,9 @@ export const RegisterForm: FC = () => {
     <>
       {contextHolder}
       <Wrapper>
-        <PageTitle>Sign Up</PageTitle>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Image width={80} src={logo} preview={false} />
+          <PageTitle style={{ color: '#000' }}>Sign Up</PageTitle>
           <RegisterFormWrapper>
             <Controller
               name="email"
@@ -93,7 +111,7 @@ export const RegisterForm: FC = () => {
               name="password"
               control={control}
               render={({ field }) => (
-                <Input placeholder="Password" {...field} />
+                <Input.Password placeholder="Password" {...field} />
               )}
             />
 
@@ -101,13 +119,14 @@ export const RegisterForm: FC = () => {
               name="confirmPassword"
               control={control}
               render={({ field }) => (
-                <Input placeholder="Confirm password" {...field} />
+                <Input.Password placeholder="Confirm password" {...field} />
               )}
             />
 
-            <button type="submit">Sign Up</button>
+            <SubmitButton type="submit">Sign Up</SubmitButton>
           </RegisterFormWrapper>
-        </form>
+          <AuthRedirectLink to="/login">Already have account? Log in.</AuthRedirectLink>
+        </Form>
       </Wrapper>
     </>
   );
